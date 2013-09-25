@@ -435,7 +435,7 @@ $(function() {
       .addClass( "ui-corner-bottom" );
  
     // move the nav to the bottom
-    $( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
+    //$( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
 	
 	//fix classes for playerPanels
 	$('.playerPanel').removeClass('ui-corner-bottom').addClass('ui-corner-top');
@@ -619,7 +619,7 @@ function coverShow(place){
 				//console.log("show #_"+current);
 				if(Players.getPlace(current)>place){effect="blind";options="left";}
 				if(Players.getPlace(current)<place){effect="leftblind";options="left";}
-				if(Players.getPlace(current)==place){effect="leftblind";options="left";}
+				if(Players.getPlace(current)==place){effect="blind";options="left";}
 				$('#_'+current).hide().css('opacity',1);
 				//$('#_'+twoDec(current)).css("height",height+" !important");//.height(height);
 				$('#_'+current).delay(add).show(effect,{direction:options,easing:easing},700/added);//.animate({width: "show", opacity: 1}, {queue: false, duration: 700});//
@@ -728,11 +728,11 @@ function sizer(num){
 	}
 	$( "#container" ).tabs( "destroy" );
 	$( "#container" ).tabs({active: num});
-	$( ".tabs-bottom .ui-tabs-nav" )
+	$( ".ui-tabs-nav" )
       .removeClass( "ui-corner-all ui-corner-top" )
       .addClass( "ui-corner-bottom" );
 	$( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
-
+	$(".playerPanel").addClass('ui-corner-top');
 	var containerWidth = $("#tabcontainer").css("width").slice(0,-2);
 	var tabWidths = 0;
 	var rows = 0;
