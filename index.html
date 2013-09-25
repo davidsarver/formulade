@@ -1,0 +1,366 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" xmlns:svg="http://www.w3.org/2000/svg">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+<title>Formula De JavaScript Assist</title>
+<script type="text/javascript" src="jquery-1.9.1.js"></script>
+<script type="text/javascript" src="jquery-ui.js"></script>
+<script type='text/javascript' src='script.js'></script>
+<script type='text/javascript' src='jquery.ui.effect-leftblind.js'></script>
+<link rel="stylesheet" href="jquery-ui.css" />
+<style type="text/css">
+.ui-state-default{
+	color:black;
+	background-color: white;
+	/*border-width:0px;*/
+	font-weight:normal;
+	margin-top:5px;
+	padding:5px !important;
+}
+.ui-state-highlight { 
+	height: 1em; line-height: 1em; 
+	width:50px;
+	margin-top:5px;
+	padding:5px;
+}
+.cust-li{
+	margin-top:5px;
+	padding:6px;
+}
+#_00, #sort00, #playertab00, .hidden {
+	display:none !important;
+}
+.ui-tabs .ui-tabs-nav li a{
+padding:0px;
+
+}
+.ui-tabs{
+padding:0px;
+}
+.ui-widget input, .ui-widget button, .ui-widget select, .ui-widget textarea{
+font-size:13px;
+font-family: Arial;
+color:black;
+}
+.ui-widget{
+font-size:16px;
+font-family: 'Times New Roman';
+color:black;
+}
+.ui-widget-content{
+background-color:white;
+}
+.ui-tabs .ui-tabs-panel{
+padding:0px;
+margin-right:3px;
+}
+#container .tabs-spacer { float: left;}
+  .tabs-bottom .ui-tabs-nav { clear: left; padding:0px;}
+  .tabs-bottom .ui-tabs-nav li { top: auto; bottom: 0; border-top:0;}
+  .ui-tabs .ui-tabs-nav li a{outline-color:transparent;}
+  .tabs-bottom .ui-tabs-nav li.ui-tabs-active { margin-top: -1px; margin-bottom:2px; padding-top: 1px; }
+.black {fill:black;}
+.transparent {fill:transparent;}
+</style>
+<script type="text/javascript"><!--
+
+//--></script></head>
+<body style="background-color:#EEEEEE;" onresize="sizer()">
+<div id="container" style="overflow-x:hidden;width:100%;" class="tabs-bottom">
+<div id="cover" style="position:absolute;background-color:#000;opacity:.1;width:100%;height:0px;z-index:1;"></div>
+<ul id="tabcontainer">
+	<button id="order" type="button" onclick="order();">Enable Order</button>
+    <li id="playertab00" onclick="enable(this.id.substring(9,11));"><a href="#_00">Player 0</a></li>
+  </ul>
+<div class="tabs-spacer"></div>
+<div id="_00" class="playerPanel" style="border:1px solid grey;margin:10px;padding:5px;background-color:#ffffff;clear:none;float:left;position:relative;z-index:0">
+<label id="playerid00" for="name00" onclick="namer(this,'click');" style="font-size:16;font-weight:bold;color:#1c94c4;cursor:pointer;">Player 0</label>
+<input type="text" id="name00" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');" style="display:none;"/><br/><br/>
+
+<button class="randomGenButton" style="display:block;" onclick="var elem=$('#randomgen00');if($(elem).css('display')=='block'){$('.randomgen').hide(300, function(){changeCoverHeight();});$('.randomGenButton').empty().append('Show Random Generator');}else{$('.randomgen').show(300,function(){changeCoverHeight();});$('.randomGenButton').empty().append('Hide Random Generator');}">Show Random Generator</button>
+
+<div id="randomgen00" class="randomgen" style="display:none;padding:5px;border:1px solid black;">
+	<button id ="rand20but00" type="button" onclick="par1=par(this);roll(getElementById('rand'+par1), getElementById('randto'+par1).value, getElementById('randfrom'+par1).value, this);">Roll</button>
+	<label for="randfrom0">From:</label><input size="3" type="text" id="randfrom00" value="1"/>
+	<label for="randto00">To:</label><input size="3" type="text" id="randto00" value="20"/><br/>
+	<label for="rand00">Result:</label><input size="3" type="text" id="rand00" value="0"/><br/>
+	<button id="cum20but00" type="button" onclick="par1=par(this);add(getElementById('rand'+par1), getElementById('cum20'+par1), this);iter(this);">Add--></button>
+	<label for="cum2000">Cumulative</label>
+	<input size="7" type="text" id="cum2000" value="0"/><br/>
+	<button id="rc20but00" type="button" onclick="par1=par(this);rolladd(getElementById('rand'+par1), getElementById('cum20'+par1), getElementById('randto'+par1).value, getElementById('randfrom'+par1).value, this);iter(this)">Roll and Add</button>
+	<button id="rc20Re00" type="button" onclick="par1=par(this);getElementById('cum20'+par1).value=0;getElementById('iteration'+par1).innerHTML=0;flash(getElementById('cum20'+par1),this);">Reset</button> Iteration:<span id="iteration00">0</span>
+</div>
+<br/>
+
+<div style="width:225;height:150;overflow:hidden;position:relative;z-index:1">
+<!--<span id="wear100" style="position:absolute; top:10px; left:100px;z-index:1;color:white;">Tires</span>-->
+<!--<input type="radio" name="tires00" id="tires0100" style="position:absolute; top:5px; left:125px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0200" style="position:absolute; top:5px; left:145px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0300" style="position:absolute; top:5px; left:165px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0400" style="position:absolute; top:5px; left:185px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0500" style="position:absolute; top:5px; left:205px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0600" style="position:absolute; top:5px; left:225px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0700" style="position:absolute; top:5px; left:245px;z-index:1;" />
+<span style="position:absolute; top:5px; left:270px;z-index:1;color:white;">7</span>
+<span style="position:absolute; top:18px; left:125px;z-index:1;color:white;">8</span>
+<input type="radio" name="tires00" id="tires0800" style="position:absolute; top:18px; left:135px;z-index:1;" />
+<input type="radio" name="tires00" id="tires0900" style="position:absolute; top:18px; left:155px;z-index:1;" />
+<input type="radio" name="tires00" id="tires1000" style="position:absolute; top:18px; left:175px;z-index:1;" />
+<input type="radio" name="tires00" id="tires1100" style="position:absolute; top:18px; left:195px;z-index:1;" />
+<input type="radio" name="tires00" id="tires1200" style="position:absolute; top:18px; left:215px;z-index:1;" />
+<input type="radio" name="tires00" id="tires1300" style="position:absolute; top:18px; left:235px;z-index:1;" />
+<input type="radio" name="tires00" id="tires1400" style="position:absolute; top:18px; left:255px;z-index:1;" />
+<span style="position:absolute; top:18px; left:275px;z-index:1;color:white;">14</span>-->
+<!--<span id="wear200" style="position:absolute; top:38px; left:100px;z-index:1;color:white;">Brakes</span>-->
+<!--<input type="radio" name="brakes00" id="brakes0100" style="position:absolute; top:38px; left:125px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0200" style="position:absolute; top:38px; left:145px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0300" style="position:absolute; top:38px; left:165px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0400" style="position:absolute; top:38px; left:185px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0500" style="position:absolute; top:38px; left:205px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0600" style="position:absolute; top:38px; left:225px;z-index:1;" />
+<input type="radio" name="brakes00" id="brakes0700" style="position:absolute; top:38px; left:245px;z-index:1;" />
+<span style="position:absolute; top:38px; left:270px;z-index:1;color:white;">7</span>-->
+<!--<span id="wear300" style="position:absolute; top:58px; left:100px;z-index:1;color:white;">Body</span>-->
+<!--<input type="radio" name="fuel00" id="fuel0100" style="position:absolute; top:58px; left:125px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0200" style="position:absolute; top:58px; left:145px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0300" style="position:absolute; top:58px; left:165px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0400" style="position:absolute; top:58px; left:185px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0500" style="position:absolute; top:58px; left:205px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0600" style="position:absolute; top:58px; left:225px;z-index:1;" />
+<input type="radio" name="fuel00" id="fuel0700" style="position:absolute; top:58px; left:245px;z-index:1;" />
+<span style="position:absolute; top:58px; left:270px;z-index:1;color:white;">7</span>-->
+<!--<span id="wear400" style="position:absolute; top:78px; left:100px;z-index:1;color:white;">Transmission</span>-->
+<!--<input type="radio" name="body00" id="body0100" style="position:absolute; top:78px; left:125px;z-index:1;" />
+<input type="radio" name="body00" id="body0200" style="position:absolute; top:78px; left:145px;z-index:1;" />
+<input type="radio" name="body00" id="body0300" style="position:absolute; top:78px; left:165px;z-index:1;" />
+<input type="radio" name="body00" id="body0400" style="position:absolute; top:78px; left:185px;z-index:1;" />
+<input type="radio" name="body00" id="body0500" style="position:absolute; top:78px; left:205px;z-index:1;" />
+<input type="radio" name="body00" id="body0600" style="position:absolute; top:78px; left:225px;z-index:1;" />
+<input type="radio" name="body00" id="body0700" style="position:absolute; top:78px; left:245px;z-index:1;" />
+<span style="position:absolute; top:78px; left:270px;z-index:1;color:white;">7</span>-->
+<!--<span id="wear500" style="position:absolute; top:98px; left:100px;z-index:1;color:white;">Engine</span>-->
+<!--<input type="radio" name="engine00" id="engine0100" style="position:absolute; top:98px; left:125px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0200" style="position:absolute; top:98px; left:145px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0300" style="position:absolute; top:98px; left:165px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0400" style="position:absolute; top:98px; left:185px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0500" style="position:absolute; top:98px; left:205px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0600" style="position:absolute; top:98px; left:225px;z-index:1;" />
+<input type="radio" name="engine00" id="engine0700" style="position:absolute; top:98px; left:245px;z-index:1;" />
+<span style="position:absolute; top:98px; left:270px;z-index:1;color:white;">7</span>-->
+<!--<span id="wear600" style="position:absolute; top:118px; left:100px;z-index:1;color:white;">Suspension</span>-->
+<!--<input type="radio" name="shock00" id="shock0100" style="position:absolute; top:118px; left:125px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0200" style="position:absolute; top:118px; left:145px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0300" style="position:absolute; top:118px; left:165px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0400" style="position:absolute; top:118px; left:185px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0500" style="position:absolute; top:118px; left:205px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0600" style="position:absolute; top:118px; left:225px;z-index:1;" />
+<input type="radio" name="shock00" id="shock0700" style="position:absolute; top:118px; left:245px;z-index:1;" />
+<span style="position:absolute; top:118px; left:270px;z-index:1;color:white;">7</span>-->
+<svg version="1.2"
+     baseProfile="full"
+     xmlns="http://www.w3.org/2000/svg"
+     xmlns:xlink="http://www.w3.org/1999/xlink"
+     xmlns:ev="http://www.w3.org/2001/xml-events"
+	viewBox="0 0 225 140" preserveAspectRatio="xMidYMid slice" id="d00"
+	style="width:225px; height:140px; position:relative; top:0; left:0;overflow:hidden;border:1px solid black;">
+	<defs>
+		<radialGradient cx="35%" cy="35%" id="gearShift">
+			<stop offset="0%" style="stop-color:white;"/>
+			<stop offset="50%" style="stop-color:black;"/>
+		</radialGradient>
+	</defs>
+	<rect x="0" y="0" width="225" height="140" style="display:inline;fill:#CCCCCC;" />
+	<!--blue tires -->
+	<rect x="107.5" y="5" width="117.5" height="30" style="fill:#374EAD;" />
+	<circle cx="107.5" cy="20" r="15" style="fill:#374E00;" />
+	<circle cx="120" cy="13" r="5" style="stroke:black;fill:black" id="peg10100"/>
+	<circle cx="135" cy="13" r="5" style="stroke:black;fill:black" id="peg10200"/>
+	<circle cx="150" cy="13" r="5" style="stroke:black;fill:black" id="peg10300"/>
+	<circle cx="165" cy="13" r="5" style="stroke:black;fill:black" id="peg10400"/>
+	<circle cx="180" cy="13" r="5" style="stroke:black;fill:black" id="peg10500"/>
+	<circle cx="195" cy="13" r="5" style="stroke:black;fill:black" id="peg10600"/>
+	<circle cx="210" cy="13" r="5" style="stroke:black;fill:black" id="peg10700"/>
+	<circle cx="120" cy="27" r="5" style="stroke:black;fill:black" id="peg10800"/>
+	<circle cx="135" cy="27" r="5" style="stroke:black;fill:black" id="peg10900"/>
+	<circle cx="150" cy="27" r="5" style="stroke:black;fill:black" id="peg11000"/>
+	<circle cx="165" cy="27" r="5" style="stroke:black;fill:black" id="peg11100"/>
+	<circle cx="180" cy="27" r="5" style="stroke:black;fill:black" id="peg11200"/>
+	<circle cx="195" cy="27" r="5" style="stroke:black;fill:black" id="peg11300"/>
+	<circle cx="210" cy="27" r="5" style="stroke:black;fill:black" id="peg11400"/>
+	<!--green -->
+	<rect x="100" y="40" width="125" height="15" style="fill:#9EB21D;"/>
+	<circle cx="100" cy="47.5" r="7.5" style="fill:#00B21D;" />
+	<circle cx="120" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20100"/>
+	<circle cx="135" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20200"/>
+	<circle cx="150" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20300"/>
+	<circle cx="165" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20400"/>
+	<circle cx="180" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20500"/>
+	<circle cx="195" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20600"/>
+	<circle cx="210" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20700"/>
+	<!--turq -->
+	<rect x="100" y="60" width="125" height="15" style="fill:#287E86;"/>
+	<circle cx="100" cy="67.5" r="7.5" style="fill:#280086;" />
+	<circle cx="120" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30100"/>
+	<circle cx="135" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30200"/>
+	<circle cx="150" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30300"/>
+	<circle cx="165" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30400"/>
+	<circle cx="180" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30500"/>
+	<circle cx="195" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30600"/>
+	<circle cx="210" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30700"/>
+	<!--orange -->
+	<rect x="100" y="80" width="125" height="15" style="fill:#C89017;"/>
+	<circle cx="100" cy="87.5" r="7.5" style="fill:#C80017;" />
+	<circle cx="120" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40100"/>
+	<circle cx="135" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40200"/>
+	<circle cx="150" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40300"/>
+	<circle cx="165" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40400"/>
+	<circle cx="180" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40500"/>
+	<circle cx="195" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40600"/>
+	<circle cx="210" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40700"/>
+	<!--red -->
+	<rect x="100" y="100" width="125" height="15" style="fill:#BF2D2E;"/>
+	<circle cx="100" cy="107.5" r="7.5" style="fill:#002D2E;" />
+	<circle cx="120" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50100"/>
+	<circle cx="135" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50200"/>
+	<circle cx="150" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50300"/>
+	<circle cx="165" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50400"/>
+	<circle cx="180" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50500"/>
+	<circle cx="195" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50600"/>
+	<circle cx="210" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50700"/>
+	<!--purple -->
+	<rect x="100" y="120" width="125" height="15" style="fill:#93357F;"/>
+	<circle cx="100" cy="127.5" r="7.5" style="fill:#933500;" />
+	<circle cx="120" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60100"/>
+	<circle cx="135" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60200"/>
+	<circle cx="150" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60300"/>
+	<circle cx="165" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60400"/>
+	<circle cx="180" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60500"/>
+	<circle cx="195" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60600"/>
+	<circle cx="210" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60700"/>
+	<rect x="55" y="12.5" width="30" height="15" style="fill:#F0F22F;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/><!--yellow 1st-->
+	<rect x="50" y="15" width="20" height="10" style="fill:black;"  onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/>
+	<circle cx="70" cy="20" r="5"  style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/>
+	<rect x="15" y="32.5" width="30" height="15" style="fill:#C89017;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/><!--orange 2nd-->
+	<rect x="30" y="35" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/>
+	<circle cx="30" cy="40" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/>
+	<rect x="55" y="52.5" width="30" height="15" style="fill:#BF2D2E;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/><!--red 3rd-->
+	<rect x="50" y="55" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/>
+	<circle cx="70" cy="60" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/>
+	<rect x="15" y="72.5" width="30" height="15" style="fill:#9EB21D;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,80,4);"/><!--green 4th-->
+	<rect x="30" y="75" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,80,4);"/>
+	<circle cx="30" cy="80" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,80,4);"/>
+	<rect x="55" y="92.5" width="30" height="15" style="fill:#93357F;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,100,5);"/><!--purple 5th-->
+	<rect x="50" y="95" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,100,5);"/>
+	<circle cx="70" cy="100" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,100,5);"/>
+	<rect x="15" y="112.5" width="30" height="15" style="fill:#374EAD;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,120,6);"/><!--blue 6th-->
+	<rect x="30" y="115" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,120,6);"/>
+	<circle cx="30" cy="120" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,120,6);"/>
+	<circle id="gear00" cx="70" cy="20" r="10" style="stroke:black;fill:url(#gearShift);" />
+	<rect id="gearcen00" x="45" y="20" width="10" height="100" style="fill:black;" /><!--center -->
+	<circle id="geartop00" cx="50" cy="20" r="5" style="fill:black;" />
+	<circle id="gearbot00" cx="50" cy="120" r="5" style="fill:black;" />
+</svg></div>
+<span id="currentGear00">Current Gear is: 1st</span>. Changing to: <span id="nextGear00">1st</span>.
+<label class="hidden" for="select00">Select Gear</label>
+<select class="hidden" id="select00" onchange="gear(this);">
+	<option value="0102">1</option>
+	<option value="0204">2</option>
+</select>
+<br/>
+
+<button id ="rand2but00" type="button" onclick="par1=par(this);select(par1,svgGear[Number(par1)]);var value=getElementById('select'+par1).value;roll(getElementById('rand2'+par1), value.substring(2,4), value.substring(0,2), this);//alert(value.substring(0,2)+' '+value.substring(2,4))">Roll</button>
+<label id="gearlab00" for="rand200">1st Gear Result</label>
+<input size="1" type="text" id="rand200" value="0"/><br/>
+<button id="cum2but00" type="button" onclick="par1=par(this);add(getElementById('rand2'+par1), getElementById('cum2'+par1), this);">Add--></button>
+<label for="cum200">Cumulative</label>
+<input size="7" type="text" id="cum200" value="0"/><br/>
+<button id="rc2but00" type="button" onclick="par1=par(this);select(par1,svgGear[Number(par1)]);value=getElementById('select'+par1).value;rolladd(getElementById('rand2'+par1), getElementById('cum2'+par1), value.substring(2,4), value.substring(0,2), this);">Roll and Add</button>
+<button id="rc2Re00" type="button" onclick="par1=par(this);getElementById('cum2'+par1).value=0;flash(getElementById('cum2'+par1),this);">Reset</button>
+
+<br/><br/>
+<button id="end00" type="button" onclick="nextPlayer(par(this))">End Turn</button>
+
+<table class="hidden" style="margin:5px;border:1px solid black;float:right;clear:none;"><tbody>
+	<tr>
+		<td>Tires</td>
+		<td id="TireVal00">4</td>
+	</tr>
+	<tr>
+		<td>Brakes</td>
+		<td id="BrakeVal00">3</td>
+	</tr>
+	<tr>
+		<td>Fuel</td>
+		<td id="FuelVal00">2</td>
+	</tr>	
+	<tr>
+		<td>Bodywork</td>
+		<td id="BodyVal00">2</td>
+	</tr>
+	<tr>
+		<td>Engine</td>
+		<td id="EngineVal00">2</td>
+	</tr>
+</tbody></table>
+
+<br/>
+<button id="reset00" type="button" onclick="reset(par(this));">Reset Player</button>
+<button id="rc2Re00" type="button" onclick="par1=par(this);removePlayer(par1)">Remove Player</button>
+<br/>
+</div>
+</div>
+<br/>
+<div style="margin:10px;width:250px;height:300px;background-color:#ffffff;float:left;clear:left;border:1px solid black;">
+<button id="newPlayer" onclick="newPlayer();">New Player</button>
+<table><tbody>
+	<tr>
+		<td><input id="wp1" type="text" value="Tires"/></td>
+		<td><button id="decwp1" type="button" onclick="decrease(this)">-</button><button id="incwp1" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp1Val">4</td>
+	</tr>
+	<tr>
+		<td><input id="wp2" type="text" value="Brake"/></td>
+		<td><button id="decwp2" type="button" onclick="decrease(this)">-</button><button id="incwp2" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp2Val">3</td>
+	</tr>
+	<tr>
+		<td><input id="wp3" type="text" value="Body"/></td>
+		<td><button id="decwp3" type="button" onclick="decrease(this)">-</button><button id="incwp3" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp3Val">2</td>
+	</tr>	
+	<tr>
+		<td><input id="wp4" type="text" value="Transmission"/></td>
+		<td><button id="decwp4" type="button" onclick="decrease(this)">-</button><button id="incwp4" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp4Val">2</td>
+	</tr>
+	<tr>
+		<td><input id="wp5" type="text" value="Engine"/></td>
+		<td><button id="decwp5" type="button" onclick="decrease(this)">-</button><button id="incwp5" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp5Val">2</td>
+	</tr>
+	<tr>
+		<td><input id="wp6" type="text" value="Suspension"/></td>
+		<td><button id="decwp6" type="button" onclick="decrease(this)">-</button><button id="incwp6" type="button" onclick="increase(this)">+</button></td>
+		<td id="wp6Val">2</td>
+	</tr>
+</tbody></table>
+</div>
+<div class="hidden" style="margin:10px;width:250px;height:300px;background-color:#ffffff;float:left;clear:none;border:1px solid black;">
+	<table>
+		<tr>
+			<td>
+				<ol id="unsortable" style="padding-left:0px;list-style-type:none;">
+					<li class="cust-li hidden">1st place - </li>
+				</ol>
+			</td>
+			<td>
+				<ol id="sortable" style="padding-left:0px;color:black;list-style-type:none;color:black;">
+					<li class="ui-state-default hidden"><span id="sort00">Player 0</span></li>
+				</ol>
+			</td>
+		</tr>
+	</table>
+	
+</div>
+</body>
+</html>
