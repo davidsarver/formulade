@@ -56,7 +56,7 @@ var Players = new playe();
 
 function roll(element, high, low, but){
 	range =Number(high)-Number(low)+1;
-	//alert("low:"+low+" high:"+high+" range:"+range+" before floor:"+((Math.random()*Number(range))+Number(low)));
+	//console.log("low:"+low+" high:"+high+" range:"+range+" before floor:"+((Math.random()*Number(range))+Number(low)));
 	element.value=Math.floor((Math.random()*Number(range))+Number(low));
 	flash(element, but);
 }
@@ -101,22 +101,13 @@ function removePlayer(num){
 		removed.sort(function(a,b){return a-b});
 	//}
 	//console.log(Players.count()+" "+removed);
-	//alert(Players.count());
+	//console.log(Players.count());
 	var container=document.getElementById("container");
-	//alert
 	var player=document.getElementById("_"+twoDec(num));
 	container.removeChild(player);
 	
-	var parent = document.getElementById("unsortable");
-	var child = parent.lastChild;
-	parent.removeChild(child);
-	
-	parent = document.getElementById("sortable");
-	child = document.getElementById("sort"+twoDec(num)).parentNode;
-	parent.removeChild(child);
-	
-	parent = document.getElementById("tabcontainer");
-	child = document.getElementById("playertab"+twoDec(num));
+	var parent = document.getElementById("tabcontainer");
+	var child = document.getElementById("playertab"+twoDec(num));
 	parent.removeChild(child);
 	
 	Players.remove(num);
@@ -128,7 +119,7 @@ function removePlayer(num){
 function newPlayer(){
 	var player = Players.count()+1;
 	if (removed.length>0){
-	player = Number(removed.shift());
+		player = Number(removed.shift());
 	}
 	newElement= document.getElementById('_00').cloneNode(true);
 	newElement.id="_"+twoDec(player);
@@ -142,42 +133,19 @@ function newPlayer(){
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
 	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
 	
-	var node=document.createElement("LI");
-	var textnode=document.createTextNode((ordinate(player))+" place - ");
-	node.appendChild(textnode);
-	document.getElementById("unsortable").appendChild(node).className="cust-li";
-	var node=document.createElement("LI");
-	var textnode=document.createTextNode((ordinate(player))+'P');
-	node.appendChild(textnode);
-	node.class="ui-state-default"
-	document.getElementById("sortable").appendChild(node).className="ui-state-default";
-	document.getElementById("sortable").lastChild.innerHTML='<span id="sort'+twoDec(player)+'">Player '+player+'</span>'
-
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = -1, l = all.length; ++i < l;) {
 		child=all[i];
 		//console.log(child.tagName);
 		if (child.tagName=="radialGradient"){continue;}
 		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
-		if(typeof(child.id)=="undefined"||child.id==""){
-			//child=child.nextSibling;
-			//continue;
+		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
-			//alert(child.id);
+			//console.log(child.id);
 			//console.log(child.id.substring(4,5));
 			child.id=(child.id.substring(0,child.id.length-2) + twoDec(player));
 			if(child.id=="name"+twoDec(player)){
 				child.value="name";
-			//}else if(child.id.substring(0,4)=="wear"){
-				//child.innerHTML=document.getElementById("wp"+child.id.substring(4,5)).value;
-			//}else if(child.id=="BrakeVal"+twoDec(player)){
-				//child.innerHTML=document.getElementById("BrakeVal").innerHTML;
-			//}else if(child.id=="FuelVal"+twoDec(player)){
-				//child.innerHTML=document.getElementById("FuelVal").innerHTML;
-			//}else if(child.id=="BodyVal"+twoDec(player)){
-				//child.innerHTML=document.getElementById("BodyVal").innerHTML;
-			//}else if(child.id=="EngineVal"+twoDec(player)){
-				//child.innerHTML=document.getElementById("EngineVal").innerHTML;
 			}else if(child.id.substring(0,3)=='peg'){
 				//console.log(child.id.substring(3,4)+" "+child.id.substring(4,6)+" "+document.getElementById('wp'+child.id.substring(3,4)+'Val').innerHTML);
 				if(Number(child.id.substring(4,6))>document.getElementById('wp'+child.id.substring(3,4)+'Val').innerHTML){
@@ -190,7 +158,7 @@ function newPlayer(){
 			
 		}
 		cfor= child.getAttribute("for");
-		//alert(cfor);
+		//console.log(cfor);
 		if(typeof(cfor)=="undefined"||cfor==""||cfor==null){
 			//child=child.nextSibling;
 			//continue;
@@ -204,61 +172,22 @@ function newPlayer(){
 			child.setAttribute("name",(cname.substring(0,cname.length-2) + twoDec(player)));}
 		//child=child.nextSibling;
 	}
-	
-	/*
-	//alert(children.length);
-	while(child != null){
-		if(child.nodeType!=1){
-			child=child.nextSibling;
-			continue;
-		}
-		if(typeof(child.id)=="undefined"||child.id==""){
-			//child=child.nextSibling;
-			//continue;
-		}else{
-			//alert(child.id);
-			child.id=(child.id.substring(0,child.id.length-2) + twoDec(player));
-			if(child.id=="name"+twoDec(player)){
-				child.value="name";
-			}else if(child.id=="TireVal"+twoDec(player)){
-				child.innerHTML=document.getElementById("TireVal").innerHTML;
-			}else if(child.id=="BrakeVal"+twoDec(player)){
-				child.innerHTML=document.getElementById("BrakeVal").innerHTML;
-			}else if(child.id=="FuelVal"+twoDec(player)){
-				child.innerHTML=document.getElementById("FuelVal").innerHTML;
-			}else if(child.id=="BodyVal"+twoDec(player)){
-				child.innerHTML=document.getElementById("BodyVal").innerHTML;
-			}else if(child.id=="EngineVal"+twoDec(player)){
-				child.innerHTML=document.getElementById("EngineVal").innerHTML;
-			}
-		}
-		cfor= child.getAttribute("for");
-		//alert(cfor);
-		if(typeof(cfor)=="undefined"||cfor==""||cfor==null){
-			child=child.nextSibling;
-			continue;
-		}
-		
-		child.setAttribute("for",(cfor.substring(0,cfor.length-2) + twoDec(player)));
-		child=child.nextSibling;
-	}*/
 
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
 	Players.add(player);
-	//alert('playerid'+twoDec(player));
+	//console.log('playerid'+twoDec(player));
 	reset(player);
-	sizer(-1);
-	//coverShow(Players.getPlace(player));
+	sizer(-1);//sizer calls coverShow();
 }
 
 function reset(num){
 	//element=document.getElementById(twoDec(num));
-	//alert("_"+twoDec(num));
+	//console.log("_"+twoDec(num));
 	child=document.getElementById("_"+twoDec(num)).firstChild;
 	while(child != null){
-	//alert(child.id);
+	//console.log(child.id);
 		if(child.nodeType==1&&child.tagName=="SELECT"){
-			//alert(child.tagName+" "+child.value);
+			//console.log(child.tagName+" "+child.value);
 			child.options[0]=new Option("1", "0102", false, false);
 			child.value="0102";
 			gear(child);
@@ -283,7 +212,7 @@ function gear(element, x, y, num){
 	var current=document.getElementById("currentGear"+par1);
 	var label=document.getElementById('gearlab'+par1);
 	var next=document.getElementById('nextGear'+par1);
-	//alert(element.value);
+	//console.log(element.value);
 	switch(Number(element.value)){
 		case 102:
 			current.innerHTML="Current gear is: 1st"
@@ -397,7 +326,7 @@ function select(player, displayValue){
 
 function par(element){
 	var par = element.parentNode.id.substring(1,3);
-	//alert(par1);
+	//console.log(par1);
 	return par;
 }
 
@@ -419,12 +348,6 @@ function namer(element,eventType){
 	sizer(player);
 }
 
-//$(function() {
-//    $( "#sortable" ).sortable({
-//      placeholder: "ui-state-highlight"
-//    }).disableSelection();
-//  });
-
 $(function() {
     $( "#container" ).tabs();
 	//$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection();
@@ -434,7 +357,7 @@ $(function() {
       .removeClass( "ui-corner-all ui-corner-top" )
       .addClass( "ui-corner-bottom" );
  
-    // move the nav to the bottom
+    // move the nav to the bottom//doesn't need to happen at beginning since there are no playerPanels
     //$( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
 	
 	//fix classes for playerPanels
@@ -478,7 +401,6 @@ function order(){
 
 	var tabCan=document.getElementById("tabcontainer");
 	var dashCan=document.getElementById("container");
-	var sortable=document.getElementById("sortable");
 	var child=tabcontainer.firstChild;//sortable.firstChild;
 	var tabName="";
 	var dashName="";
@@ -505,30 +427,15 @@ function order(){
 		i++;
 		child=child.nextSibling;
 	}
-	/*container=document.getElementById("container");
-	sortable=document.getElementById("sortable");
-	child=sortable.firstChild;
-	while(child!=null){
-		if(child.nodeType!=1){
-			child=child.nextSibling;
-			continue;
-		}
-		//alert(child.tagName);
-		string="_"+child.lastChild.id.substring(4,6);
-		//alert(string);
-		x=container.removeChild(document.getElementById(string));
-		container.appendChild(x);
-		child=child.nextSibling;
-	}*/
-	
+
 	sizer(1);
 	coverShow(1);
 }
 
 function nextPlayer(cur){
 	child=document.getElementById("_"+cur);
-	//alert(child.id.substring(1,3));
-	//alert(current.parentNode.nextSibling.nextSibling.nodeType+current.parentNode.nextSibling.nextSibling.tagName);
+	//console.log(child.id.substring(1,3));
+	//console.log(current.parentNode.nextSibling.nextSibling.nodeType+current.parentNode.nextSibling.nextSibling.tagName);
 	do{
 		if(child.nodeType!=1||child.tagName!="DIV"){
 			child=child.nextSibling;
@@ -536,7 +443,7 @@ function nextPlayer(cur){
 		}
 		child=child.nextSibling;
 	}while(child!=null&&child.tagName!="DIV")
-	//alert(child.id.substring(1,3));
+	//console.log(child.id.substring(1,3));
 	return child;
 }
 
@@ -633,36 +540,9 @@ function coverShow(place){
 			$('#_'+twoDec(current)).css('z-index','0');
 		}
 		//console.log("Players.displayed.indexOf("+twoDec(current)+") = "+Players.displayed.indexOf(twoDec(current)));
-		
-		/*if(i!=place&&(!(place+i)<=Players.count()&&(i+2)<=number)){	
-		}
-		if((place+i)<=Players.count()&&(i+2)<=number){
-		}*/
 		i++;
 	}
 	Players.active = place;
-	
-	/*
-	//if(playerWidth==""){playerWidth=300;}
-	
-	//console.log(containerWidth+" / "+playerWidth+" = "+(containerWidth/playerWidth)+" ≈ "+Math.floor(containerWidth/playerWidth));
-	
-	//console.log(place+"-1="+(place-1)+" Player:"+player+":");
-	if(number>2&&Players.count()>1&&place>1){
-		$('#_'+Players.getPlayer(place-1)).show({duration:700,specialEasing:{width:"linear"}});//.animate({width: "show", opacity: 1}, {queue: false, duration: 700});
-	}
-	i=0;
-
-	//console.log("\n"+(Number(player)+i)+"<="+Players.count()+" && "+player+"<="+number);
-	while((place+i)<=Players.count()&&(i+2)<=number){
-		//console.log((place+i)+"<="+Players.count()+" && "+(i+2)+"<="+number);
-		//$('#_'+Players.getPlayer(place+i)).show({duration:700,specialEasing:{width:"linear"}});//.animate({width: "show", opacity: 1}, {queue: false, duration: 700});
-		//console.log(twoDec(Players.getPlayer(place+i)));
-		//$('#_'+twoDec(i)).css('z-index','0');
-		i++;
-	}
-	*/
-	//console.log(twoDec(player));
 	$('#_'+twoDec(player)).css('z-index','3');
 }
 
@@ -774,13 +654,10 @@ function color(event){
 	var player=elem.id.substring(6,8);
 	var desc = elem.id.substring(0,4);
 	//console.log(peg+" "+player);
-	//elem.style.fill="black"
-	//if(peg==01){
-		var peg1=elem.style.fill;
+	var peg1=elem.style.fill;
 		//console.log(twoDec(Number(peg)+1));
-		var peg2=document.getElementById(desc+twoDec(Number(peg)+1)+player);
-		if(peg2 != null){peg2=peg2.style.fill;}
-	//}
+	var peg2=document.getElementById(desc+twoDec(Number(peg)+1)+player);
+	if(peg2 != null){peg2=peg2.style.fill;}
 	var circle;
 	for(var i=1; i<=peg ; i++ ){
 		//console.log(desc+" "+twoDec(i)+" "+player+" "+peg);
@@ -797,18 +674,15 @@ function color(event){
 		i++;
 	}
 	
-	
-	//if (peg=='01'){
-		//console.log(elem.style.fill);
-		if((peg1=="#000000"||peg1=="black")){
-			if(peg2=="#000000"||peg2=="black"){
-			}else{
-				elem.style.fill="transparent";
-			}
+	//console.log(elem.style.fill);
+	if((peg1=="#000000"||peg1=="black")){//TODO determine which check I need to do.
+		if(peg2=="#000000"||peg2=="black"){
 		}else{
-			elem.style.fill="black";
+			elem.style.fill="transparent";
 		}
-	//}
+	}else{
+		elem.style.fill="black";
+	}
 	//console.log(elem.id);
 	//console.log(elem);
 }
