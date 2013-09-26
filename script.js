@@ -619,7 +619,7 @@ function coverShow(place){
 				//console.log("show #_"+current);
 				if(Players.getPlace(current)>place){effect="blind";options="left";}
 				if(Players.getPlace(current)<place){effect="leftblind";options="left";}
-				if(Players.getPlace(current)==place){effect="blind";options="left";}
+				if(Players.getPlace(current)==place){effect="leftblind";options="left";}
 				$('#_'+current).hide().css('opacity',1);
 				//$('#_'+twoDec(current)).css("height",height+" !important");//.height(height);
 				$('#_'+current).delay(add).show(effect,{direction:options,easing:easing},700/added);//.animate({width: "show", opacity: 1}, {queue: false, duration: 700});//
