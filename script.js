@@ -136,9 +136,9 @@ function newPlayer(){
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
 		child=all[i];
-		if(child!=undefined){
+		/*if(child!=undefined){
 			console.log(child.tagName);
-		}
+		}*/
 		if(child==undefined){
 			break;
 		}
