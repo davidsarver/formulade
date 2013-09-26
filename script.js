@@ -136,15 +136,15 @@ function newPlayer(){
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
 		child=all[i];
-		/*if(child!=undefined){
+		if(child!=undefined){
 			console.log(child.tagName);
-		}*/
+		}
 		if(child==undefined){
 			break;
 		}
 		
-		if (child== undefined ||child.tagName=="SVG:RADIALGRADIENT"){continue;}
-		if (child.tagName=="SVG:CIRCLE"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
+		if (child.tagName=="svg:radialGradient"){continue;}
+		if (child.tagName=="svg:circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
 		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
 			//console.log(child.id);
