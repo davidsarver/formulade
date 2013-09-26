@@ -134,10 +134,16 @@ function newPlayer(){
 	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
-	for (var i = -1, l = all.length; ++i < l;) {
+	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
 		child=all[i];
-		//console.log(child.tagName);
-		if (child.tagName=="radialGradient"){continue;}
+		if(child!=undefined){
+			console.log(child.tagName);
+		}
+		if(child==undefined){
+			break;
+		}
+		
+		if (child== undefined ||child.tagName=="radialGradient"){continue;}
 		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
 		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
