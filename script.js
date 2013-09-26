@@ -420,7 +420,7 @@ function order(){
 		//tabCan.appendChild(tab);
 		
 		dashName="_"+Players.getPlayer(i);
-		console.log(child.id);
+		//console.log(child.id);
 		dash=dashCan.removeChild(document.getElementById(dashName));
 		dashCan.appendChild(dash);
 		
