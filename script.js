@@ -143,8 +143,8 @@ function newPlayer(){
 			break;
 		}
 		
-		if (child== undefined ||child.tagName=="radialGradient"){continue;}
-		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
+		if (child== undefined ||child.tagName=="SVG:RADIALGRADIENT"){continue;}
+		if (child.tagName=="SVG:CIRCLE"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color)};
 		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
 			//console.log(child.id);
