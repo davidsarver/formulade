@@ -1,8 +1,7 @@
-//players = 0;
 removed = new Array();
 svgGear = new Array();
 
-function playe() {
+function playe() {//this is a one-off object otherwise function playe(){}; var Players = new playe;
 	var playerOrder = new Array("Nothing");
 	this.displayed = new Array();
 	this.active = 0;
@@ -136,9 +135,9 @@ function newPlayer(){
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
 		child=all[i];
-		if(child!=undefined){
-			console.log(child.tagName);
-		}
+		//if(child!=undefined){
+			//console.log(child.tagName);
+		//}
 		if(child==undefined){
 			break;
 		}
@@ -285,15 +284,16 @@ function gear(element, x, y, num){
 			element.options[4]=new Option("6", "2130", true, true);
 			break;
 		default:
-			alert("broken");
+			console.log("broken");
 			break;
 	}
 	
 	if(arguments.length>1){
 		var gear = document.getElementById("gear"+par1);
 		var allowed=false;
-		var children = element.getElementsByTagName('OPTION');
+		var children = element.getElementsByTagName('option');
 		var child;
+		console.log(children);
 		for (var i = -1, l = children.length; ++i < l;) {
 			child=children[i];
 			if(child.innerHTML==num){
@@ -614,7 +614,7 @@ function sizer(num){
 	}
 	$( "#container" ).tabs( "destroy" );
 	$( "#container" ).tabs({active: num});
-	$( ".ui-tabs-nav" )
+	$( ".ui-tabs-nav li, .ui-tabs-nav" )
       .removeClass( "ui-corner-all ui-corner-top" )
       .addClass( "ui-corner-bottom" );
 	$( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
