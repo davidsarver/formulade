@@ -407,14 +407,14 @@ function order(){
 
 	var tabCan=document.getElementById("tabcontainer");
 	var dashCan=document.getElementById("container");
-	var child=tabcontainer.firstChild;//sortable.firstChild;
+	var child=tabCan.firstChild.nextSibling;//sortable.firstChild;//skip sort button
 	var tabName="";
 	var dashName="";
 	var tab, dash;
 	
 	var i=0;
 	while(child!=null){
-		if(child.nodeType!=1||child.id=="order"){
+		if(child.nodeType!=1||child.id=="orderLi"){
 			child=child.nextSibling;
 			continue;
 		}
@@ -614,29 +614,36 @@ function sizer(num){
 	}
 	$( "#container" ).tabs( "destroy" );
 	$( "#container" ).tabs({active: num});
-	$( ".ui-tabs-nav li, .ui-tabs-nav" )
+	$( ".playerTab, .ui-tabs-nav" )
       .removeClass( "ui-corner-all ui-corner-top" )
       .addClass( "ui-corner-bottom" );
 	$( ".tabs-bottom .ui-tabs-nav" ).appendTo( ".tabs-bottom" );
 	$(".playerPanel").addClass('ui-corner-top');
-	var containerWidth = $("#tabcontainer").css("width").slice(0,-2);
+	var containerWidth = $("#tabcontainer").innerWidth();
 	var tabWidths = 0;
 	var rows = 0;
-	var oldRows = 0
+	var oldRows = 0;
 	//<button id="order" type="button" onclick="order();">Set Order</button>
-	tabWidths += $('#order').outerWidth(true);
+	//tabWidths += $('#order').outerWidth(true);
 	
-	var all = document.getElementById("tabcontainer").getElementsByTagName('LI');
+	console.log("\nstart");
+	var all = document.getElementById("tabcontainer").getElementsByTagName('li');
 	for (var i = -1, l = all.length; ++i < l;) {
 		child=all[i];
-		tabWidths += $(child).outerWidth(true);
+		if(child.id=="playertab00"){
+			continue;
+		}
+		tabWidths += ($(child).outerWidth(true)+5);//TODO figure this out!
 		oldRows = rows;
 		rows = (tabWidths) / containerWidth;
+		console.log(rows+" "+$(child).outerWidth(true));
+		$(child).css("clear", "none");
 		if (rows>=1){
 			$(child).addClass("ui-corner-all").css("margin", "2px 3px 0px 0px");
-			if(Math.floor(rows)!=Math.floor(oldRows)){
-				//console.log(rows+" != "+oldRows);
+			if(Math.floor(rows)>Math.floor(oldRows)){
+				console.log(rows+" > "+oldRows+child.id);
 				$(child).css("clear", "left");
+				tabWidths = containerWidth;//reset any error in width calculations will set rows back to 1.000
 			}
 		}else{
 			$(child).removeClass( "ui-corner-all ui-corner-top" ).addClass( "ui-corner-bottom" ).css("margin", "");
@@ -648,7 +655,9 @@ function sizer(num){
 	changeCoverHeight();
 	//console.log("container: "+containerWidth+" tabs: "+tabWidths+" rows: "+rows);
 }
-
+//$( document ).ready(function() {
+	$(window).resize(function() {sizer()});
+//});
 //if first
 //	if first=black && second=black run normal
 //	if first=black && second=trans set first trans

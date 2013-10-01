@@ -64,12 +64,12 @@ margin-right:3px;
 .transparent {fill:transparent;}
 </style>
 </head>
-<body style="background-color:#EEEEEE;" onresize="sizer()">
+<body style="background-color:#EEEEEE;">
 <div id="container" style="overflow-x:hidden;width:100%;" class="tabs-bottom">
 <div id="cover" style="position:absolute;background-color:#000;opacity:.1;width:100%;height:0px;z-index:1;"></div>
-<ul id="tabcontainer">
-	<!--<button id="order" type="button" onclick="order();">Enable Order</button>-->
-    <li id="playertab00" onclick="enable(this.id.substring(9,11));"><a href="#_00">Player 0</a></li>
+<ul id="tabcontainer" onresize="sizer()">
+	<li id="orderLi"><button id="order" type="button" onclick="order();">Enable Order</button></li>
+    <li class="playerTab" id="playertab00" onclick="enable(this.id.substring(9,11));"><a href="#_00">Player 0</a></li>
   </ul>
 <div class="tabs-spacer"></div> 
 <div id="_00" class="playerPanel" style="margin:10px;padding:5px;background-color:#ffffff;clear:none;float:left;position:relative;z-index:0">
