@@ -69,7 +69,7 @@ margin-right:3px;
 <div id="cover" style="position:absolute;background-color:#000;opacity:.1;width:100%;height:0px;z-index:1;"></div>
 <ul id="tabcontainer" onresize="sizer()">
 	<li id="orderLi"><button id="order" type="button" onclick="order();">Enable Order</button></li>
-    <li class="playerTab" id="playertab00" onclick="enable(this.id.substring(9,11));"><a href="#_00">Player 0</a></li>
+    <li class="playerTab" id="playertab00" onclick="enable(sel(this));"><a href="#_00">Player 0</a></li>
   </ul>
 <div class="tabs-spacer"></div> 
 <div id="_00" class="playerPanel" style="margin:10px;padding:5px;background-color:#ffffff;clear:none;float:left;position:relative;z-index:0">
@@ -170,13 +170,13 @@ margin-right:3px;
 	<svg:circle cx="180" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60500"/>
 	<svg:circle cx="195" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60600"/>
 	<svg:circle cx="210" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60700"/>
-	<svg:rect x="55" y="12.5" width="30" height="15" style="fill:#F0F22F;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),70,20,1);"/><!--yellow 1st-->
-	<svg:rect x="50" y="15" width="20" height="10" style="fill:black;"  onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),70,20,1);"/>
-	<svg:circle cx="70" cy="20" r="5"  style="fill:black;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),70,20,1);"/>
-	<svg:rect x="15" y="32.5" width="30" height="15" style="fill:#C89017;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),30,40,2);"/><!--orange 2nd-->
-	<svg:rect x="30" y="35" width="20" height="10" style="fill:black;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),30,40,2);"/>
-	<svg:circle cx="30" cy="40" r="5" style="fill:black;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),30,40,2);"/>
-	<svg:rect x="55" y="52.5" width="30" height="15" style="fill:#BF2D2E;" onclick="par1=par(this);console.log(par1);gear(document.getElementById('select'+par1),70,60,3);"/><!--red 3rd-->
+	<svg:rect x="55" y="12.5" width="30" height="15" style="fill:#F0F22F;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/><!--yellow 1st-->
+	<svg:rect x="50" y="15" width="20" height="10" style="fill:black;"  onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/>
+	<svg:circle cx="70" cy="20" r="5"  style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,20,1);"/>
+	<svg:rect x="15" y="32.5" width="30" height="15" style="fill:#C89017;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/><!--orange 2nd-->
+	<svg:rect x="30" y="35" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/>
+	<svg:circle cx="30" cy="40" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,40,2);"/>
+	<svg:rect x="55" y="52.5" width="30" height="15" style="fill:#BF2D2E;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/><!--red 3rd-->
 	<svg:rect x="50" y="55" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/>
 	<svg:circle cx="70" cy="60" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('select'+par1),70,60,3);"/>
 	<svg:rect x="15" y="72.5" width="30" height="15" style="fill:#9EB21D;" onclick="par1=par(this);gear(document.getElementById('select'+par1),30,80,4);"/><!--green 4th-->

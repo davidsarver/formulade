@@ -293,7 +293,7 @@ function gear(element, x, y, num){
 		var allowed=false;
 		var children = element.getElementsByTagName('option');
 		var child;
-		console.log(children);
+		//console.log(children);
 		for (var i = -1, l = children.length; ++i < l;) {
 			child=children[i];
 			if(child.innerHTML==num){
@@ -331,21 +331,22 @@ function select(player, displayValue){
 }
 
 function par(element){
-	var par = element.parentNode.id.substring(1,3);
-	//console.log(par1);
-	return par;
+	return element.parentNode.id.substr(-2);
+}
+
+function sel(element){
+	return element.id.substr(-2);
 }
 
 function namer(element,eventType){
 	var player = par(element);
-	console.log('name'+player+"."+'playerid'+player);
-	if(element.tagName=="LABEL"){
+	//console.log('name'+player+"."+'playerid'+player);
+	if(element.tagName=="label"){
 		$(element).css('display','none');
 		$('#name'+player).show().css('display','inline-block').select();
 		return;
 	}
 	if(eventType=='change'){
-		document.getElementById("sort"+player).innerHTML=element.value;
 		document.getElementById("playerid"+player).innerHTML=element.value;
 		document.getElementById("playertab"+player).firstChild.innerHTML=element.value;
 	}
@@ -626,7 +627,7 @@ function sizer(num){
 	//<button id="order" type="button" onclick="order();">Set Order</button>
 	//tabWidths += $('#order').outerWidth(true);
 	
-	console.log("\nstart");
+	//console.log("\nstart");
 	var all = document.getElementById("tabcontainer").getElementsByTagName('li');
 	for (var i = -1, l = all.length; ++i < l;) {
 		child=all[i];
@@ -636,12 +637,12 @@ function sizer(num){
 		tabWidths += ($(child).outerWidth(true)+5);//TODO figure this out!
 		oldRows = rows;
 		rows = (tabWidths) / containerWidth;
-		console.log(rows+" "+$(child).outerWidth(true));
+		//console.log(rows+" "+$(child).outerWidth(true));
 		$(child).css("clear", "none");
 		if (rows>=1){
 			$(child).addClass("ui-corner-all").css("margin", "2px 3px 0px 0px");
 			if(Math.floor(rows)>Math.floor(oldRows)){
-				console.log(rows+" > "+oldRows+child.id);
+				//console.log(rows+" > "+oldRows+child.id);
 				$(child).css("clear", "left");
 				tabWidths = containerWidth;//reset any error in width calculations will set rows back to 1.000
 			}
