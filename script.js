@@ -1,7 +1,18 @@
 removed = new Array();
 svgGear = new Array();
 
-function playe() {//this is a one-off object otherwise function playe(){}; var Players = new playe;
+function Player(id){
+	var id = id;
+	this.toString= function(){
+		return id;
+	}
+
+	this.valueOf = function(){
+		return id;
+	}
+}
+
+var Players = new function() {//this is a one-off object otherwise function playe(){}; var Players = new playe;
 	var playerOrder = new Array("Nothing");
 	this.displayed = new Array();
 	this.active = 0;
@@ -21,7 +32,10 @@ function playe() {//this is a one-off object otherwise function playe(){}; var P
 	//takes a number and returns the index or place/order of the player
 	//searches the playerOrder array for the twoDec(player) string.
 	this.getPlace = function(player){
-		//console.log(twoDec(player));
+		if (Number(player)<1){
+			return this.count();
+		}
+		console.log(twoDec(player)+" index:"+playerOrder.indexOf(twoDec(player)));
 		return playerOrder.indexOf(twoDec(player));
 	}
 	
@@ -37,7 +51,9 @@ function playe() {//this is a one-off object otherwise function playe(){}; var P
 	
 	//takes a number and adds it to the end of the playerOrder array
 	this.add = function(player){
-		playerOrder[playerOrder.length]=twoDec(player);
+		player = twoDec(player);
+		playerOrder[playerOrder.length]=new Player(player);
+		console.log(playerOrder[playerOrder.length-1]+" "+(player==playerOrder[playerOrder.length-1])+"= "+player);
 	}
 	
 	this.setPlace = function(player,place){
@@ -51,7 +67,7 @@ function playe() {//this is a one-off object otherwise function playe(){}; var P
 		return playerOrder[place];
 	}
 };
-var Players = new playe();
+//var Players = new playe();
 
 function roll(element, high, low, but){
 	range =Number(high)-Number(low)+1;
