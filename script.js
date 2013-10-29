@@ -192,13 +192,13 @@ function reset(num){
 	child=document.getElementById("_"+twoDec(num)).firstChild;
 	while(child != null){
 	//console.log(child.id);
-		if(child.nodeType==1&&child.tagName=="SELECT"){
+		if(child.nodeType==1&&child.tagName=="select"){
 			//console.log(child.tagName+" "+child.value);
 			child.options[0]=new Option("1", "0102", false, false);
 			child.value="0102";
 			gear(child);
 		} 
-		if(child.nodeType!=1||child.tagName!="INPUT"||child.getAttribute("type")!="text"||child.id=="name"+twoDec(num)){
+		if(child.nodeType!=1||child.tagName!="input"||child.getAttribute("type")!="text"||child.id=="name"+twoDec(num)){
 			child=child.nextSibling;
 			continue;
 		}
@@ -445,19 +445,19 @@ function nextPlayer(cur){
 	//console.log(child.id.substring(1,3));
 	//console.log(current.parentNode.nextSibling.nextSibling.nodeType+current.parentNode.nextSibling.nextSibling.tagName);
 	do{
-		if(child.nodeType!=1||child.tagName!="DIV"){
+		if(child.nodeType!=1||child.tagName!="div"){
 			child=child.nextSibling;
 			continue;
 		}
 		child=child.nextSibling;
-	}while(child!=null&&child.tagName!="DIV")
+	}while(child!=null&&child.tagName!="div")
 	//console.log(child.id.substring(1,3));
 	return child;
 }
 
 function enable(player){
 	//console.log(player);
-	var all = document.getElementById("_"+player).getElementsByTagName('SELECT');
+	var all = document.getElementById("_"+player).getElementsByTagName('select');
 	for (var i = -1, l = all.length; ++i < l;) {
 		child=all[i];
 		child.removeAttribute("disabled");
