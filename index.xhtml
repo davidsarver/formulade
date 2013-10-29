@@ -73,8 +73,8 @@ margin-right:3px;
   </ul>
 <div class="tabs-spacer"></div> 
 <div id="_00" class="playerPanel" style="margin:10px;padding:5px;background-color:#ffffff;clear:none;float:left;position:relative;z-index:0">
-<label id="playerid00" for="name00" onclick="namer(this,'click');" style="font-size:16;font-weight:bold;color:#1c94c4;cursor:pointer;">Player 0</label>
-<input type="text" id="name00" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');" style="display:none;"/><br/><br/>
+<label id="playerid00" for="name00" onclick="namer(this,'click');" style="font-size:16;font-weight:bold;color:#1c94c4;cursor:pointer;display:none;">Player 0</label>
+<input type="text" id="name00" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');"/><br/><br/>
 
 <button class="randomGenButton" style="display:block;" onclick="var elem=$('#randomgen00');if($(elem).css('display')=='block'){$('.randomgen').hide(300, function(){changeCoverHeight();});$('.randomGenButton').empty().append('Show Random Generator');}else{$('.randomgen').show(300,function(){changeCoverHeight();});$('.randomGenButton').empty().append('Hide Random Generator');}">Show Random Generator</button>
 

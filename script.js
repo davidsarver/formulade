@@ -179,6 +179,7 @@ function newPlayer(){
 	}
 
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
+	document.getElementById('name'+twoDec(player)).value="Player "+player;
 	Players.add(player);
 	//console.log('playerid'+twoDec(player));
 	reset(player);
