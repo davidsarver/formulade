@@ -1,5 +1,8 @@
 removed = new Array();
-svgGear = new Array();
+//svgGear = new Array();
+gearRanges = new Array("zero","0102","0204","0408","0712","1120","2130");
+gearTop = new Array("zero",2,4,8,12,20,30);
+gearBottom = new Array("zero",1,2,4,7,11,21);
 
 function playe() {//this is a one-off object otherwise function playe(){}; var Players = new playe;
 	var playerOrder = new Array("Nothing");
@@ -122,6 +125,10 @@ function newPlayer(){
 	}
 	newElement= document.getElementById('_00').cloneNode(true);
 	newElement.id="_"+twoDec(player);
+	newElement.currentGear = 1;
+	newElement.state = "start";
+	newElement.nextGear = 1;
+	
 	document.getElementById('container').appendChild(newElement);
 	children=document.getElementById("_"+twoDec(player)).childNodes;
 	child=document.getElementById("_"+twoDec(player)).firstChild;
@@ -210,79 +217,38 @@ function reset(num){
 }
 
 function gear(element, x, y, num){
-	var par1=par(element);
-	if(element.disabled){
+	var par1=sel(element);
+	var player = document.getElementById("_"+par1);
+	if(player.state=="rolled"){
 		return false;
 	}
-	//console.log(element.disabled);
 	var current=document.getElementById("currentGear"+par1);
 	var label=document.getElementById('gearlab'+par1);
 	var next=document.getElementById('nextGear'+par1);
-	//console.log(element.value);
-	switch(Number(element.value)){
-		case 102:
+	switch(player.currentGear){
+		case 1:
 			current.innerHTML="Current gear is: 1st"
 			label.innerHTML="1st Gear Result";
-			element.options.length=0;
-			element.options[0]=new Option("1", "0102", true, true);
-			element.options[1]=new Option("2", "0204", false, false);
 			break;
-		case 204:
+		case 2:
 			label.innerHTML="2nd Gear Result";
 			current.innerHTML="Current gear is: 2nd"
-			element.options.length=0;
-			element.options[0]=new Option("1", "0102", false, false);
-			element.options[1]=new Option("2", "0204", true, true);
-			element.options[2]=new Option("3", "0408", false, false);
 			break;
-		case 408:
+		case 3:
 			label.innerHTML="3rd Gear Result";
 			current.innerHTML="Current gear is: 3rd"
-			element.options.length=0;
-			element.options[0]=new Option("1", "0102", false, false);
-			element.options[0].style.backgroundColor="#450000";
-			element.options[1]=new Option("2", "0204", false, false);
-			element.options[2]=new Option("3", "0408", true, true);
-			element.options[3]=new Option("4", "0712", false, false);
 			break;
-		case 712:
+		case 4:
 			label.innerHTML="4th Gear Result";
 			current.innerHTML="Current gear is: 4th"
-			element.options.length=0;
-			element.options[0]=new Option("1", "0102", false, false);
-			element.options[0].style.backgroundColor="#8C0000";
-			element.options[1]=new Option("2", "0204", false, false);
-			element.options[1].style.backgroundColor="#450000";
-			element.options[2]=new Option("3", "0408", false, false);
-			element.options[3]=new Option("4", "0712", true, true);
-			element.options[4]=new Option("5", "1120", false, false);
 			break;
-		case 1120:
+		case 5:
 			label.innerHTML="5th Gear Result";
 			current.innerHTML="Current gear is: 5th"
-			element.options.length=0;
-			element.options[0]=new Option("1", "0102", false, false);
-			element.options[0].style.backgroundColor="#CF0000";
-			element.options[1]=new Option("2", "0204", false, false);
-			element.options[1].style.backgroundColor="#8C0000";
-			element.options[2]=new Option("3", "0408", false, false);
-			element.options[2].style.backgroundColor="#450000";
-			element.options[3]=new Option("4", "0712", false, false);
-			element.options[4]=new Option("5", "1120", true, true);
-			element.options[5]=new Option("6", "2130", false, false);
 			break;
-		case 2130:
+		case 6:
 			label.innerHTML="6th Gear Result";
 			current.innerHTML="Current gear is: 6th"
-			element.options.length=0;
-			element.options[0]=new Option("2", "0204", false, false);
-			element.options[0].style.backgroundColor="#CF0000";
-			element.options[1]=new Option("3", "0408", false, false);
-			element.options[1].style.backgroundColor="#8C0000";
-			element.options[2]=new Option("4", "0712", false, false);
-			element.options[2].style.backgroundColor="#450000";
-			element.options[3]=new Option("5", "1120", false, false);
-			element.options[4]=new Option("6", "2130", true, true);
 			break;
 		default:
 			console.log("broken");
@@ -291,43 +257,38 @@ function gear(element, x, y, num){
 	
 	if(arguments.length>1){
 		var gear = document.getElementById("gear"+par1);
-		var allowed=false;
-		var children = element.getElementsByTagName('option');
-		var child;
-		//console.log(children);
-		for (var i = -1, l = children.length; ++i < l;) {
-			child=children[i];
-			if(child.innerHTML==num){
-				allowed=true;
-				break;
-			}
-		}
-		if(allowed){
-			svgGear[Number(par1)]=num;
+		if(num<(player.currentGear+2)&&num>(player.currentGear-5)){//(allowed) //players can only shift up one or down four.
+			player.nextGear=num;//player is document object
+			console.log(player.nextGear+"="+num);
 			next.innerHTML=ordinate(num);
 			gear.setAttribute("cx",x);
 			gear.setAttribute("cy",y);
-			var color=child.style.backgroundColor;
+			var color=69*(player.currentGear-num-1);
+			if (color<0){color=0;}
+			color="#"+(color).toString(16)+"0000"
+			console.log(color+" next:"+num);
 			document.getElementById('gearcen'+par1).style.fill=color;
 			document.getElementById('geartop'+par1).style.fill=color;
 			document.getElementById('gearbot'+par1).style.fill=color;
 		}
 	}
 }
+/**
+called by Roll button and RollandAdd button
+changes the gear selection based on player.currentGear and
+disables the select preventing change of gear after rolling
+player = twoDec string or number
+displayValue = player.gear, a number
 
+might be obsolete after removing the select.
+*/
 function select(player, displayValue){
-	player=Number(player);
-	selectTag=document.getElementById("select"+twoDec(player));
-    var options = selectTag.getElementsByTagName('option');
-    for(var i = 0; i < options.length; i++){
-        if(options[i].textContent == displayValue)
-        {
-            options[i].selected = true;
-            break;
-        }
-	}
-	selectTag.onchange();
-	selectTag.setAttribute("disabled", "true");
+	var playerNum=Number(player);
+	var player = document.getElementById("_"+twoDec(playerNum));
+	var selectTag=document.getElementById("select"+twoDec(playerNum));
+	player.currentGear = player.nextGear;
+	gear(player);
+	player.state = "rolled";
 	//document.getElementById('buttonRemove').removeAttribute("disabled");
 }
 
@@ -457,12 +418,12 @@ function nextPlayer(cur){
 
 function enable(player){
 	//console.log(player);
-	var all = document.getElementById("_"+player).getElementsByTagName('select');
+	/*var all = document.getElementById("_"+player).getElementsByTagName('select');
 	for (var i = -1, l = all.length; ++i < l;) {
 		child=all[i];
 		child.removeAttribute("disabled");
-	}
-	
+	}*/
+	document.getElementById("_"+player).state="start";
 	coverShow(Players.getPlace(player));
 }
 
