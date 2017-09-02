@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en-US">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<title>Formula De JavaScript Assist</title>
+	<script type="text/javascript" src="jquery.js"></script>
+	<script type="text/javascript" src="jquery-ui.js"></script>
+	<script type='text/javascript' src='script.js'></script>
+	<script type='text/javascript' src='jquery.ui.effect-leftblind.js'></script>
+	<link rel="stylesheet" href="jquery-ui.css" />
+	<link rel="stylesheet" href="styles.css" />
+</head>
+<body style="background-color:#EEEEEE;">
+
+<div id="container" style="overflow-x:hidden;width:100%;" class="tabs-bottom">
+	<div id="cover" style="position:absolute;background-color:#000;opacity:.1;width:100%;height:0px;z-index:1;"></div>
+	<ul id="tabcontainer" onresize="sizer()">
+		<li id="orderLi"><button id="order" type="button" onclick="order();">Enable Order</button></li>
+		<li class="playerTab" id="playertab00" onclick="enable(sel(this));"><a href="#_00">Player 0</a></li>
+	</ul>
+	<div class="tabs-spacer"></div> 
+	
+	<div id="_00" class="playerPanel">
+		<label id="playerid00" class="name" for="name00" onclick="namer(this,'click');">Player 0</label>
+		<input type="text" id="name00" class="name" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');"/><br/><br/>
+
+		<button class="randomGenButton" style="display:block;" onclick="var elem=$('#randomgen00');if($(elem).css('display')=='block'){$('.randomgen').hide(300, function(){changeCoverHeight();});$('.randomGenButton').empty().append('Random Generator');}else{$('.randomgen').show(300,function(){changeCoverHeight();});$('.randomGenButton').empty().append('Hide Generator');}">Random Generator</button>
+
+		<div id="randomgen00" class="randomgen" style="display:none;padding:5px;margin:16px 0px 0px 0px;border:1px solid black;">
+			<button id ="rand20but00" type="button" onclick="par1=par(this);roll(getElementById('rand'+par1), getElementById('randto'+par1).value, getElementById('randfrom'+par1).value, this);">Roll</button>
+			<label for="randfrom00">From:</label><input size="3" type="text" id="randfrom00" value="1"/>
+			<label for="randto00">To:</label><input size="3" type="text" id="randto00" value="20"/><br/>
+			<label for="rand00">Result:</label><input size="3" type="text" id="rand00" value="0"/><br/>
+			<button id="cum20but00" type="button" onclick="par1=par(this);add(getElementById('rand'+par1), getElementById('cum20'+par1), this);iter(this);">Add--></button>
+			<label for="cum2000">Cumulative</label>
+			<input size="7" type="text" id="cum2000" value="0"/><br/>
+			<button id="rc20but00" type="button" onclick="par1=par(this);rolladd(getElementById('rand'+par1), getElementById('cum20'+par1), getElementById('randto'+par1).value, getElementById('randfrom'+par1).value, this);iter(this)">Roll and Add</button>
+			<button id="rc20Re00" type="button" onclick="par1=par(this);getElementById('cum20'+par1).value=0;getElementById('iteration'+par1).innerHTML=0;flash(getElementById('cum20'+par1),this);">Reset</button> Iteration:<span id="iteration00">0</span>
+		</div>
+		<br/>
+
+		<div style="width:225;height:150;overflow:hidden;position:relative;z-index:1">
+		<svg:svg version="1.1"
+			baseProfile="full"
+			viewBox="0 0 225 140" preserveAspectRatio="xMidYMid slice" id="d00"
+			style="width:225px; height:140px; position:relative; top:0; left:0;overflow:hidden;border:1px solid black;">
+			<svg:defs>
+				<svg:radialGradient cx="35%" cy="35%" id="gearShift">
+					<svg:stop offset="0%" style="stop-color:white;"/>
+					<svg:stop offset="50%" style="stop-color:black;"/>
+				</svg:radialGradient>
+			</svg:defs>
+			<svg:rect x="0" y="0" width="225" height="140" style="display:inline;fill:#CCCCCC;" />
+			<!--blue tires -->
+			<svg:rect x="107.5" y="5" width="117.5" height="30" style="fill:#374EAD;" />
+			<svg:circle cx="107.5" cy="20" r="15" style="fill:#374E00;" />
+			<svg:circle cx="120" cy="13" r="5" style="stroke:black;fill:black" id="peg10100"/>
+			<svg:circle cx="135" cy="13" r="5" style="stroke:black;fill:black" id="peg10200"/>
+			<svg:circle cx="150" cy="13" r="5" style="stroke:black;fill:black" id="peg10300"/>
+			<svg:circle cx="165" cy="13" r="5" style="stroke:black;fill:black" id="peg10400"/>
+			<svg:circle cx="180" cy="13" r="5" style="stroke:black;fill:black" id="peg10500"/>
+			<svg:circle cx="195" cy="13" r="5" style="stroke:black;fill:black" id="peg10600"/>
+			<svg:circle cx="210" cy="13" r="5" style="stroke:black;fill:black" id="peg10700"/>
+			<svg:circle cx="120" cy="27" r="5" style="stroke:black;fill:black" id="peg10800"/>
+			<svg:circle cx="135" cy="27" r="5" style="stroke:black;fill:black" id="peg10900"/>
+			<svg:circle cx="150" cy="27" r="5" style="stroke:black;fill:black" id="peg11000"/>
+			<svg:circle cx="165" cy="27" r="5" style="stroke:black;fill:black" id="peg11100"/>
+			<svg:circle cx="180" cy="27" r="5" style="stroke:black;fill:black" id="peg11200"/>
+			<svg:circle cx="195" cy="27" r="5" style="stroke:black;fill:black" id="peg11300"/>
+			<svg:circle cx="210" cy="27" r="5" style="stroke:black;fill:black" id="peg11400"/>
+			<!--green -->
+			<svg:rect x="100" y="40" width="125" height="15" style="fill:#9EB21D;"/>
+			<svg:circle cx="100" cy="47.5" r="7.5" style="fill:#00B21D;" />
+			<svg:circle cx="120" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20100"/>
+			<svg:circle cx="135" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20200"/>
+			<svg:circle cx="150" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20300"/>
+			<svg:circle cx="165" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20400"/>
+			<svg:circle cx="180" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20500"/>
+			<svg:circle cx="195" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20600"/>
+			<svg:circle cx="210" cy="47.5" r="5" style="stroke:black;fill:black" id="peg20700"/>
+			<!--turq -->
+			<svg:rect x="100" y="60" width="125" height="15" style="fill:#287E86;"/>
+			<svg:circle cx="100" cy="67.5" r="7.5" style="fill:#280086;" />
+			<svg:circle cx="120" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30100"/>
+			<svg:circle cx="135" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30200"/>
+			<svg:circle cx="150" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30300"/>
+			<svg:circle cx="165" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30400"/>
+			<svg:circle cx="180" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30500"/>
+			<svg:circle cx="195" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30600"/>
+			<svg:circle cx="210" cy="67.5" r="5" style="stroke:black;fill:black" id="peg30700"/>
+			<!--orange -->
+			<svg:rect x="100" y="80" width="125" height="15" style="fill:#C89017;"/>
+			<svg:circle cx="100" cy="87.5" r="7.5" style="fill:#C80017;" />
+			<svg:circle cx="120" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40100"/>
+			<svg:circle cx="135" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40200"/>
+			<svg:circle cx="150" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40300"/>
+			<svg:circle cx="165" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40400"/>
+			<svg:circle cx="180" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40500"/>
+			<svg:circle cx="195" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40600"/>
+			<svg:circle cx="210" cy="87.5" r="5" style="stroke:black;fill:black" id="peg40700"/>
+			<!--red -->
+			<svg:rect x="100" y="100" width="125" height="15" style="fill:#BF2D2E;"/>
+			<svg:circle cx="100" cy="107.5" r="7.5" style="fill:#002D2E;" />
+			<svg:circle cx="120" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50100"/>
+			<svg:circle cx="135" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50200"/>
+			<svg:circle cx="150" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50300"/>
+			<svg:circle cx="165" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50400"/>
+			<svg:circle cx="180" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50500"/>
+			<svg:circle cx="195" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50600"/>
+			<svg:circle cx="210" cy="107.5" r="5" style="stroke:black;fill:black" id="peg50700"/>
+			<!--purple -->
+			<svg:rect x="100" y="120" width="125" height="15" style="fill:#93357F;"/>
+			<svg:circle cx="100" cy="127.5" r="7.5" style="fill:#933500;" />
+			<svg:circle cx="120" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60100"/>
+			<svg:circle cx="135" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60200"/>
+			<svg:circle cx="150" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60300"/>
+			<svg:circle cx="165" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60400"/>
+			<svg:circle cx="180" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60500"/>
+			<svg:circle cx="195" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60600"/>
+			<svg:circle cx="210" cy="127.5" r="5" style="stroke:black;fill:black" id="peg60700"/>
+			<svg:rect x="55" y="12.5" width="30" height="15" style="fill:#F0F22F;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,20,1);"/><!--yellow 1st-->
+			<svg:rect x="50" y="15" width="20" height="10" style="fill:black;"  onclick="par1=par(this);gear(document.getElementById('_'+par1),70,20,1);"/>
+			<svg:circle cx="70" cy="20" r="5"  style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,20,1);"/>
+			<svg:rect x="15" y="32.5" width="30" height="15" style="fill:#C89017;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,40,2);"/><!--orange 2nd-->
+			<svg:rect x="30" y="35" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,40,2);"/>
+			<svg:circle cx="30" cy="40" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,40,2);"/>
+			<svg:rect x="55" y="52.5" width="30" height="15" style="fill:#BF2D2E;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,60,3);"/><!--red 3rd-->
+			<svg:rect x="50" y="55" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,60,3);"/>
+			<svg:circle cx="70" cy="60" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,60,3);"/>
+			<svg:rect x="15" y="72.5" width="30" height="15" style="fill:#9EB21D;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,80,4);"/><!--green 4th-->
+			<svg:rect x="30" y="75" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,80,4);"/>
+			<svg:circle cx="30" cy="80" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,80,4);"/>
+			<svg:rect x="55" y="92.5" width="30" height="15" style="fill:#93357F;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,100,5);"/><!--purple 5th-->
+			<svg:rect x="50" y="95" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,100,5);"/>
+			<svg:circle cx="70" cy="100" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),70,100,5);"/>
+			<svg:rect x="15" y="112.5" width="30" height="15" style="fill:#374EAD;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,120,6);"/><!--blue 6th-->
+			<svg:rect x="30" y="115" width="20" height="10" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,120,6);"/>
+			<svg:circle cx="30" cy="120" r="5" style="fill:black;" onclick="par1=par(this);gear(document.getElementById('_'+par1),30,120,6);"/>
+			<svg:circle id="gear00" cx="70" cy="20" r="10" style="stroke:black;fill:url(#gearShift);" />
+			<svg:rect id="gearcen00" x="45" y="20" width="10" height="100" style="fill:black;" /><!--center -->
+			<svg:circle id="geartop00" cx="50" cy="20" r="5" style="fill:black;" />
+			<svg:circle id="gearbot00" cx="50" cy="120" r="5" style="fill:black;" />
+		</svg:svg>
+		</div>
+		<span id="currentGear00">Current gear is: 1st</span>. Changing to: <span id="nextGear00">1st</span>.
+		<br/>
+
+		<button id ="rand2but00" type="button" onclick="var par1=sel(this); var player=getElementById('_'+par1); select(par1,player.currentGear); roll(getElementById('rand2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);//console.log(value.substring(0,2)+' '+value.substring(2,4))">Roll</button>
+		<label id="gearlab00" for="rand200">1st Gear Result</label>
+		<input size="1" type="text" id="rand200" value="0"/><br/>
+		<button id="cum2but00" type="button" onclick="par1=par(this);add(getElementById('rand2'+par1), getElementById('cum2'+par1), this);">Add--></button>
+		<label for="cum200">Cumulative</label>
+		<input size="7" type="text" id="cum200" value="0"/><br/>
+		<button id="rc2but00" type="button" onclick="var par1=par(this); var player=getElementById('_'+par1); select(par1,player.currentGear); rolladd(getElementById('rand2'+par1), getElementById('cum2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);">Roll and Add</button>
+		<button id="rc2Re00" type="button" onclick="par1=par(this);getElementById('cum2'+par1).value=0;flash(getElementById('cum2'+par1),this);">Reset</button>
+
+		<br/><br/>
+		<button id="end00" type="button" onclick="nextPlayer(par(this))">End Turn</button>
+
+		<br/>
+		<button id="reset00" type="button" onclick="reset(par(this));">Reset Player</button>
+		<button id="rc2Rm00" type="button" onclick="removePlayer(par(this))">Remove Player</button>
+		<br/>
+	</div>
+</div>
+<div id="newPlayerPanel">
+	<button id="newPlayer" onclick="newPlayer();">New Player</button>
+	<table><tbody>
+		<tr>
+			<td><input id="wp1" type="text" value="Tires"/></td>
+			<td><button id="decwp1" type="button" onclick="decrease(this)">-</button><button id="incwp1" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp1Val">4</td>
+		</tr>
+		<tr>
+			<td><input id="wp2" type="text" value="Brake"/></td>
+			<td><button id="decwp2" type="button" onclick="decrease(this)">-</button><button id="incwp2" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp2Val">3</td>
+		</tr>
+		<tr>
+			<td><input id="wp3" type="text" value="Body"/></td>
+			<td><button id="decwp3" type="button" onclick="decrease(this)">-</button><button id="incwp3" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp3Val">2</td>
+		</tr>	
+		<tr>
+			<td><input id="wp4" type="text" value="Transmission"/></td>
+			<td><button id="decwp4" type="button" onclick="decrease(this)">-</button><button id="incwp4" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp4Val">2</td>
+		</tr>
+		<tr>
+			<td><input id="wp5" type="text" value="Engine"/></td>
+			<td><button id="decwp5" type="button" onclick="decrease(this)">-</button><button id="incwp5" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp5Val">2</td>
+		</tr>
+		<tr>
+			<td><input id="wp6" type="text" value="Suspension"/></td>
+			<td><button id="decwp6" type="button" onclick="decrease(this)">-</button><button id="incwp6" type="button" onclick="increase(this)">+</button></td>
+			<td id="wp6Val">2</td>
+		</tr>
+	</tbody></table>
+</div>
+</body>
+</html>
