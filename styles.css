@@ -101,3 +101,29 @@ div#newPlayerPanel{
 	clear:left;
 	border:1px solid black;
 }
+div.svgWrapper{
+	width:225;
+	height:150;
+	overflow:hidden;
+	position:relative;
+	z-index:1;
+}
+svg.svg{
+	width:225px;
+	height:140px;
+	position:relative;
+	top:0;
+	left:0;
+	overflow:hidden;
+	border:1px solid black;
+}
+.gear{
+	stroke:black;
+	/*fill:black;*/
+	background: radial-gradient(ellipse at 20% 20%, white 20%, black 80%);
+	background-color:red;
+	background-image:-webkit-gradient(linear, left top, right top, from(red), to(#f06d06));
+	background-image:-webkit-linear-gradient(left, red, #f06d06);	
+	background-image:linear-gradient(to right, red, orange);
+}
+
