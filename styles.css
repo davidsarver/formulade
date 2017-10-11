@@ -117,13 +117,13 @@ svg.svg{
 	overflow:hidden;
 	border:1px solid black;
 }
-.gear{
+svg#svgDefs{
+	height:0px;
+	width:0px;
+}
+svg.svg circle.gear{
 	stroke:black;
-	/*fill:black;*/
-	background: radial-gradient(ellipse at 20% 20%, white 20%, black 80%);
-	background-color:red;
-	background-image:-webkit-gradient(linear, left top, right top, from(red), to(#f06d06));
-	background-image:-webkit-linear-gradient(left, red, #f06d06);	
-	background-image:linear-gradient(to right, red, orange);
+	color:transparent;
+	/*background: radial-gradient(ellipse at 35% 35%, white 50%, black 50%);*/
 }
 
