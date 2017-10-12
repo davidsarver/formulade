@@ -21,7 +21,7 @@ body{
 	padding:6px;
 }
 #_00, #sort00, #playertab00, .hidden {
-	display:none !important;
+	/*display:none !important;*/
 }
 .ui-tabs .ui-tabs-nav li a{
 	padding:0px;

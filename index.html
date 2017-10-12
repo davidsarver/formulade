@@ -5,10 +5,12 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Formula De JavaScript Assist</title>
 	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="jquery-ui.js"></script>
+	<script type="text/javascript" src="jquery-ui.min.js"></script>
 	<script type='text/javascript' src='script.js'></script>
 	<script type='text/javascript' src='jquery.ui.effect-leftblind.js'></script>
-	<link rel="stylesheet" href="jquery-ui.css" />
+	<link rel="stylesheet" href="jquery-ui.min.css" />
+	<link rel="stylesheet" href="jquery-ui.structure.min.css" />
+	<link rel="stylesheet" href="jquery-ui.theme.min.css" />
 	<link rel="stylesheet" href="styles.css" />
 </head>
 <body style="background-color:#EEEEEE;">
@@ -53,6 +55,7 @@
 		<svg xmlns="http://www.w3.org/2000/svg"
 			viewBox="0 0 225 140" preserveAspectRatio="xMidYMid slice" 
 			id="d00" class="svg">
+
 			<rect x="0" y="0" width="225" height="140" style="display:inline;fill:#CCCCCC;" />
 			<!--blue tires -->
 			<rect x="107.5" y="5" width="117.5" height="30" style="fill:#374EAD;" />
@@ -148,7 +151,7 @@
 		<span id="currentGear00">Current gear is: 1st</span>. Changing to: <span id="nextGear00">1st</span>.
 		<br/>
 
-		<button id ="rand2but00" type="button" onclick="var par1=sel(this); var player=getElementById('_'+par1); select(par1,player.currentGear); roll(getElementById('rand2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);//console.log(value.substring(0,2)+' '+value.substring(2,4))">Roll</button>
+		<button id ="rand2but00" type="button" onclick="var par1=sel(this); var player=getElementById('_'+par1); select(par1,player.currentGear); roll(getElementById('rand2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);console.log(value.substring(0,2)+' '+value.substring(2,4))">Roll</button>
 		<label id="gearlab00" for="rand200">1st Gear Result</label>
 		<input size="1" type="text" id="rand200" value="0"/><br/>
 		<button id="cum2but00" type="button" onclick="par1=par(this);add(getElementById('rand2'+par1), getElementById('cum2'+par1), this);">Add--></button>
