@@ -4,14 +4,17 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<title>Formula De JavaScript Assist</title>
-	<script type="text/javascript" src="jquery.js"></script>
-	<script type="text/javascript" src="jquery-ui.min.js"></script>
-	<script type='text/javascript' src='script.js'></script>
+	<script type="text/javascript" src="jquery/jquery.js"></script>
+	<script type="text/javascript" src="jquery/jquery-ui.min.js"></script>
 	<script type='text/javascript' src='jquery.ui.effect-leftblind.js'></script>
-	<link rel="stylesheet" href="jquery-ui.min.css" />
-	<link rel="stylesheet" href="jquery-ui.structure.min.css" />
-	<link rel="stylesheet" href="jquery-ui.theme.min.css" />
+	<link rel="stylesheet" href="jquery/jquery-ui.min.css" />
+	<link rel="stylesheet" href="jquery/jquery-ui.structure.min.css" />
+	<link rel="stylesheet" href="jquery/jquery-ui.theme.min.css" />
+	<script src='spectrum.js'></script>
+    <link rel='stylesheet' href='spectrum.css' />
+	<script type='text/javascript' src='script.js'></script>
 	<link rel="stylesheet" href="styles.css" />
+	
 </head>
 <body style="background-color:#EEEEEE;">
 	<svg xmlns="http://www.w3.org/2000/svg" id="svgDefs" class="svgDefs">
@@ -36,6 +39,10 @@
 		<label id="playerid00" class="name" for="name00" onclick="namer(this,'click');">Player 0</label>
 		<input type="text" id="name00" class="name" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');"/><br/><br/>
 
+		<div id="picWrap00" class="picWrap">
+			<img src="driver.png" id="profilePic00" height="70px" alt="Profile Pic"/>
+		</div>
+		
 		<button class="randomGenButton" style="display:block;" onclick="var elem=$('#randomgen00');if($(elem).css('display')=='block'){$('.randomgen').hide(300, function(){changeCoverHeight();});$('.randomGenButton').empty().append('Random Generator');}else{$('.randomgen').show(300,function(){changeCoverHeight();});$('.randomGenButton').empty().append('Hide Generator');}">Random Generator</button>
 
 		<div id="randomgen00" class="randomgen" style="display:none;padding:5px;margin:16px 0px 0px 0px;border:1px solid black;">
@@ -203,6 +210,15 @@
 			<td id="wp6Val">2</td>
 		</tr>
 	</tbody></table>
+	<input type="text" id="colorPicker" />
+	<script>
+		$("#colorPicker").spectrum({
+			color: "#f00",
+			flat:true,
+			showInput:false,
+			showButtons:false
+		});
+	</script>
 </div>
 </body>
 </html>

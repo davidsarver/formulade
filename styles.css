@@ -21,7 +21,7 @@ body{
 	padding:6px;
 }
 #_00, #sort00, #playertab00, .hidden {
-	/*display:none !important;*/
+	display:none !important;
 }
 .ui-tabs .ui-tabs-nav li a{
 	padding:0px;
@@ -126,4 +126,11 @@ svg.svg circle.gear{
 	color:transparent;
 	/*background: radial-gradient(ellipse at 35% 35%, white 50%, black 50%);*/
 }
-
+.picWrap{
+	position:absolute;
+	right:5px;
+	top:5px;
+	width:100px;
+	height:70px;
+	text-align:center;
+}
