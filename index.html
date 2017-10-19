@@ -30,7 +30,7 @@
 <div id="container" style="overflow-x:hidden;width:100%;" class="tabs-bottom">
 	<div id="cover" style="position:absolute;background-color:#000;opacity:.1;width:100%;height:0px;z-index:1;"></div>
 	<ul id="tabcontainer" onresize="sizer()">
-		<li id="orderLi"><button id="order" type="button" onclick="order();">Enable Order</button></li>
+		<li id="orderLi"><button id="order" type="button" onclick="order();">Order/Edit<br/>Roster</button></li>
 		<li class="playerTab" id="playertab00" onclick="enable(sel(this));"><a href="#_00">Player 0</a></li>
 	</ul>
 	<div class="tabs-spacer"></div> 
@@ -177,6 +177,7 @@
 	</div>
 </div>
 <div id="newPlayerPanel">
+	<div id="newPlayerColor"></div>
 	<button id="newPlayer" onclick="newPlayer();">New Player</button>
 	<table><tbody>
 		<tr>
@@ -213,10 +214,13 @@
 	<input type="text" id="colorPicker" />
 	<script>
 		$("#colorPicker").spectrum({
-			color: "#f00",
+			color: "#d00",
 			flat:true,
 			showInput:false,
-			showButtons:false
+			showButtons:false,
+			move: function(color2) {
+				document.getElementById('newPlayerPanel').style.backgroundColor=color2.toHexString();
+			}
 		});
 	</script>
 </div>

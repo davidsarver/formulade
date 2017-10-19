@@ -4,6 +4,10 @@ gearRanges = new Array("zero","0102","0204","0408","0712","1120","2130");
 gearTop = new Array("zero",2,4,8,12,20,30);
 gearBottom = new Array("zero",1,2,4,7,11,21);
 
+$( document ).ready(function() {
+
+});
+
 var game = {	"player00":{
 		"name":"name",
 		"color":"#a5a5a5","picture":"data:image/png;base64,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",
@@ -155,6 +159,8 @@ function newPlayer(){
 	document.getElementById('tabcontainer').appendChild(newElement);
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
 	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
+	document.getElementById('_'+twoDec(player)).style.backgroundColor=$("#colorPicker").spectrum("get").toHexString();
+	//console.log($("#colorPicker").spectrum("get").toHexString());
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
@@ -205,6 +211,7 @@ function newPlayer(){
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
 	document.getElementById('name'+twoDec(player)).value="Player "+player;
 	Players.add(player);
+	
 	//console.log('playerid'+twoDec(player));
 	reset(player);
 	sizer(-1);//sizer calls coverShow();
@@ -377,7 +384,7 @@ function ordinate(num){
 function order(){
 	try{
 		$("#tabcontainer").sortable("destroy");
-		document.getElementById('order').innerHTML='Enable Order';
+		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
 		document.getElementById('order').innerHTML='Set Order';
