@@ -385,12 +385,17 @@ function order(){
 	try{
 		$("#tabcontainer").sortable("destroy");
 		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
+		$('.roster').hide();
+		changeCoverHeight()
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
 		document.getElementById('order').innerHTML='Set Order';
+		$('.roster').show();
+		changeCoverHeight()
 		return;
 	}
-		
+	
+
 
 	var tabCan=document.getElementById("tabcontainer");
 	var dashCan=document.getElementById("container");
