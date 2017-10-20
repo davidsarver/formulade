@@ -163,8 +163,19 @@ svg.svg circle.gear{
 	background-color:rgb(0,169,51);
 }
 .playerColor {
+	border-top-right-radius:6px;
+	border-top-left-radius:6px;
 	height:40px;
 	width:100%;
+}
+.playerColorBottom {
+	top:auto;
+	bottom:0px;
+	border-bottom-right-radius:6px;
+	border-bottom-left-radius:6px;
+	height:40px;
+	width:100%;
+	
 }
 .playerComplement {
 	top:40px;

@@ -205,6 +205,7 @@ function newPlayer(){
 	}
 	
 	document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=$("#newColor").css("background-color");
+	document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=$("#newColor").css("background-color");
 	document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=$("#newComplement").css("background-color");
 	document.getElementById('playerid'+twoDec(player)).style.color=$("#newComplement").css("background-color");
 	
@@ -706,7 +707,7 @@ function hexToComplementary(hex){
 	var R = parseInt(complement.slice(0,2), 16); 
 	var B = parseInt(complement.slice(2,4), 16);
 	var G = parseInt(complement.slice(4,6), 16);
-	console.log(ryb2rgb([R,B,G])+"_"+[R,B,G]+"_"+R+" " +B+" "+G);
+	//console.log(ryb2rgb([R,B,G])+"_"+[R,B,G]+"_"+R+" " +B+" "+G);
     return "rgb("+ryb2rgb([R,B,G])+")";
 }  
 
