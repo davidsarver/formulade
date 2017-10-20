@@ -4,9 +4,6 @@ gearRanges = new Array("zero","0102","0204","0408","0712","1120","2130");
 gearTop = new Array("zero",2,4,8,12,20,30);
 gearBottom = new Array("zero",1,2,4,7,11,21);
 
-$( document ).ready(function() {
-
-});
 
 var game = {	"player00":{
 		"name":"name",
@@ -159,8 +156,7 @@ function newPlayer(){
 	document.getElementById('tabcontainer').appendChild(newElement);
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
 	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
-	document.getElementById('_'+twoDec(player)).style.backgroundColor=$("#colorPicker").spectrum("get").toHexString();
-	//console.log($("#colorPicker").spectrum("get").toHexString());
+
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
 	for (var i = 0, l = all.length-1/*<-executed before*/; i < l/*<-condition for running*/;i++) {
@@ -207,7 +203,11 @@ function newPlayer(){
 			child.setAttribute("name",(cname.substring(0,cname.length-2) + twoDec(player)));}
 		//child=child.nextSibling;
 	}
-
+	
+	document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=$("#newColor").css("background-color");
+	document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=$("#newComplement").css("background-color");
+	document.getElementById('playerid'+twoDec(player)).style.color=$("#newComplement").css("background-color");
+	
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
 	document.getElementById('name'+twoDec(player)).value="Player "+player;
 	Players.add(player);
@@ -693,3 +693,35 @@ function color(event){
 	//console.log(elem.id);
 	//console.log(elem);
 }
+
+/* hexToComplimentary : Converts hex value to HSL, shifts
+ * hue by 180 degrees and then converts hex, giving complimentary color
+ * as a hex value
+ * @param  [String] hex : hex value  
+ * @return [String] : complimentary color as hex value
+ */
+function hexToComplementary(hex){
+	//([1.0-c[0], 1.0-c[1], 1.0-c[2]])
+	var complement = ('000000' + (('0xffffff' ^ ('0x'+hex)).toString(16))).slice(-6);
+	var R = parseInt(complement.slice(0,2), 16); 
+	var B = parseInt(complement.slice(2,4), 16);
+	var G = parseInt(complement.slice(4,6), 16);
+	console.log(ryb2rgb([R,B,G])+"_"+[R,B,G]+"_"+R+" " +B+" "+G);
+    return "rgb("+ryb2rgb([R,B,G])+")";
+}  
+
+
+$( document ).ready(function() {
+	$("#colorPicker").spectrum({
+		color: "#d00",
+		flat:true,
+		showInput:false,
+		showButtons:false,
+		move: function(color2) {
+			document.getElementById('newColor').style.backgroundColor=color2.toHexString();
+			document.getElementById('newComplement').style.backgroundColor=hexToComplementary(color2.toHex());
+			//console.log(hexToComplementary(color2.toHex()));
+		}
+	});
+	//$("#colorPicker").spectrum("move");
+});

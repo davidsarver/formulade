@@ -11,8 +11,9 @@
 	<link rel="stylesheet" href="jquery/jquery-ui.min.css" />
 	<link rel="stylesheet" href="jquery/jquery-ui.structure.min.css" />
 	<link rel="stylesheet" href="jquery/jquery-ui.theme.min.css" />
-	<script src='spectrum.js'></script>
-    <link rel='stylesheet' href='spectrum.css' />
+	<script type="text/javascript" src='colors/spectrum.js'></script>
+    <link rel='stylesheet' href='colors/spectrum.css' />
+	<script type='text/javascript' src='colors/ryb2rgb.js'></script>
 	<script type='text/javascript' src='script.js'></script>
 	<link rel="stylesheet" href="styles.css" />
 	
@@ -37,6 +38,9 @@
 	<div class="tabs-spacer"></div> 
 	
 	<div id="_00" class="playerPanel">
+		<div id="playerColor00" class="playerColor color"></div>
+		<div id="playerContrast00" class="playerComplement color"></div>
+	
 		<label id="playerid00" class="name" for="name00" onclick="namer(this,'click');">Player 0</label>
 		<input type="text" id="name00" class="name" value="name" onchange="namer(this,'change');" onblur="namer(this,'blur');"/><br/><br/>
 
@@ -178,7 +182,8 @@
 	</div>
 </div>
 <div id="newPlayerPanel">
-	<div id="newPlayerColor"></div>
+	<div id="newColor" class="color"></div>
+	<div id="newComplement" class="color"></div>
 	<button id="newPlayer" onclick="newPlayer();">New Player</button>
 	<table><tbody>
 		<tr>
@@ -214,15 +219,7 @@
 	</tbody></table>
 	<input type="text" id="colorPicker" />
 	<script>
-		$("#colorPicker").spectrum({
-			color: "#d00",
-			flat:true,
-			showInput:false,
-			showButtons:false,
-			move: function(color2) {
-				document.getElementById('newPlayerPanel').style.backgroundColor=color2.toHexString();
-			}
-		});
+
 	</script>
 </div>
 </body>
