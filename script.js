@@ -703,12 +703,12 @@ function color(event){
  */
 function hexToComplementary(hex){
 	//([1.0-c[0], 1.0-c[1], 1.0-c[2]])
-	var complement = ('000000' + (('0xffffff' ^ ('0x'+hex)).toString(16))).slice(-6);
-	var R = parseInt(complement.slice(0,2), 16); 
-	var B = parseInt(complement.slice(2,4), 16);
-	var G = parseInt(complement.slice(4,6), 16);
+	//var complement = ('000000' + (('0xffffff' ^ ('0x'+hex)).toString(16))).slice(-6);
+	var R = parseInt(hex.slice(0,2), 16); 
+	var B = parseInt(hex.slice(2,4), 16);
+	var G = parseInt(hex.slice(4,6), 16);
 	//console.log(ryb2rgb([R,B,G])+"_"+[R,B,G]+"_"+R+" " +B+" "+G);
-    return "rgb("+ryb2rgb([R,B,G])+")";
+    return "rgb("+RXB.complementary(RXB.ryb2rgb([R,B,G]),0)+")";
 }  
 
 
@@ -719,8 +719,12 @@ $( document ).ready(function() {
 		showInput:false,
 		showButtons:false,
 		move: function(color2) {
-			document.getElementById('newColor').style.backgroundColor=color2.toHexString();
-			document.getElementById('newComplement').style.backgroundColor=hexToComplementary(color2.toHex());
+			var color = color2.toHexString();
+			document.getElementById('newColor').style.backgroundColor=color;
+			document.getElementById('newColor').title = color;
+			color = hexToComplementary(color2.toHex());
+			document.getElementById('newComplement').style.backgroundColor=color;
+			document.getElementById('newComplement').title=color;
 			//console.log(hexToComplementary(color2.toHex()));
 		}
 	});
