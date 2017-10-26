@@ -203,11 +203,18 @@ function newPlayer(){
 			child.setAttribute("name",(cname.substring(0,cname.length-2) + twoDec(player)));}
 		//child=child.nextSibling;
 	}
+	var color = $("#newColor").css("background-color");
+	console.log($("#newComplement").css("background-color"));
+	colorEdit(color,twoDec(player));
+	//document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=color;
+	//document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=color;
+	$("#playerColorEdit"+twoDec(player)).spectrum({color:color});//,move:colorEdit(color,player)});
 	
-	document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=$("#newColor").css("background-color");
-	document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=$("#newColor").css("background-color");
-	document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=$("#newComplement").css("background-color");
-	document.getElementById('playerid'+twoDec(player)).style.color=$("#newComplement").css("background-color");
+	color = $("#newComplement").css("background-color");
+	complementEdit(color,twoDec(player));
+	//document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=color;
+	//document.getElementById('playerid'+twoDec(player)).style.color=color;
+	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color});//,move:complementEdit(color,player)});
 	
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
 	document.getElementById('name'+twoDec(player)).value="Player "+player;
@@ -387,11 +394,13 @@ function order(){
 		$("#tabcontainer").sortable("destroy");
 		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
 		$('.roster').hide();
+		$('.gamePlay').show();
 		changeCoverHeight()
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
 		document.getElementById('order').innerHTML='Set Order';
 		$('.roster').show();
+		$('.gamePlay').hide();
 		changeCoverHeight()
 		return;
 	}
@@ -711,6 +720,18 @@ function hexToComplementary(hex){
     return "rgb("+RXB.complementary(RXB.ryb2rgb([R,B,G]),0)+")";
 }  
 
+function colorEdit(color,player){
+	console.log(color);
+	//document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=color;
+	//document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=color;
+	return null;
+}
+
+function complementEdit(color,player){
+	//document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=color;
+	//document.getElementById('playerid'+twoDec(player)).style.color=color;
+	return null;
+}
 
 $( document ).ready(function() {
 	$("#colorPicker").spectrum({

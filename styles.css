@@ -81,6 +81,7 @@ body{
 	float:left;
 	position:relative;
 	z-index:0;
+	width:250px;
 }
 label.name{
 	font-size:22px;
@@ -141,7 +142,7 @@ svg.svg circle.gear{
 #newPlayerPanel{
 	position:relative;	
 }
-.name, #newPlayerPanel input,button{
+.name, input, button, .sp-light{
 	position:relative;
 	z-index:1;
 }
