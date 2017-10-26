@@ -204,17 +204,14 @@ function newPlayer(){
 		//child=child.nextSibling;
 	}
 	var color = $("#newColor").css("background-color");
-	console.log($("#newComplement").css("background-color"));
 	colorEdit(color,twoDec(player));
-	//document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=color;
-	//document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=color;
-	$("#playerColorEdit"+twoDec(player)).spectrum({color:color});//,move:colorEdit(color,player)});
+	$("#playerColorEdit"+twoDec(player)).spectrum({color:color}); //initialize the color edit color picker
+	$("#playerColorEdit"+twoDec(player)).on('move.spectrum', function(e,color){colorEdit(color,e)}); //bind the colorEdit() function
 	
 	color = $("#newComplement").css("background-color");
 	complementEdit(color,twoDec(player));
-	//document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=color;
-	//document.getElementById('playerid'+twoDec(player)).style.color=color;
-	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color});//,move:complementEdit(color,player)});
+	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color});//initialize the complement edit color picker
+	$("#playerComplementEdit"+twoDec(player)).on('move.spectrum', function(e,color){complementEdit(color,e)}); //bind the complementEdit() function;
 	
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
 	document.getElementById('name'+twoDec(player)).value="Player "+player;
@@ -720,16 +717,25 @@ function hexToComplementary(hex){
     return "rgb("+RXB.complementary(RXB.ryb2rgb([R,B,G]),0)+")";
 }  
 
+//accepts either a string color and string player number or tinyColor object and move event (e)
 function colorEdit(color,player){
-	console.log(color);
-	//document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=color;
-	//document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=color;
+	if(typeof player != "string"){
+		player = sel(player.currentTarget);
+		color = color.toHexString(); //#ffffff
+	}
+	document.getElementById('playerColor'+twoDec(player)).style.backgroundColor=color;
+	document.getElementById('playerColorBottom'+twoDec(player)).style.backgroundColor=color;
 	return null;
 }
 
+//accepts either a string color and string player number or tinyColor object and move event (e)
 function complementEdit(color,player){
-	//document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=color;
-	//document.getElementById('playerid'+twoDec(player)).style.color=color;
+	if(typeof player != "string"){
+		player = sel(player.currentTarget);
+		color = color.toHexString(); //#ffffff
+	}
+	document.getElementById('playerContrast'+twoDec(player)).style.backgroundColor=color;
+	document.getElementById('playerid'+twoDec(player)).style.color=color;
 	return null;
 }
 
