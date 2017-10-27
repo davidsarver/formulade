@@ -205,12 +205,12 @@ function newPlayer(){
 	}
 	var color = $("#newColor").css("background-color");
 	colorEdit(color,twoDec(player));
-	$("#playerColorEdit"+twoDec(player)).spectrum({color:color}); //initialize the color edit color picker
+	$("#playerColorEdit"+twoDec(player)).spectrum({color:color,showInput:false,showButtons:false,appendTo:"#roster"+twoDec(player)}); //initialize the color edit color picker
 	$("#playerColorEdit"+twoDec(player)).on('move.spectrum', function(e,color){colorEdit(color,e)}); //bind the colorEdit() function
 	
 	color = $("#newComplement").css("background-color");
 	complementEdit(color,twoDec(player));
-	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color});//initialize the complement edit color picker
+	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color,showInput:false,showButtons:false,appendTo:"#roster"+twoDec(player)});//initialize the complement edit color picker
 	$("#playerComplementEdit"+twoDec(player)).on('move.spectrum', function(e,color){complementEdit(color,e)}); //bind the complementEdit() function;
 	
 	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;

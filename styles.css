@@ -47,6 +47,12 @@ body{
 	padding:0px;
 	margin-right:3px;
 }
+#container {
+	overflow:visible;
+	overflow-x: visible;
+	overflow-y: visible;
+	width: auto;
+}
 #container .tabs-spacer {
 	float: left;
 }
