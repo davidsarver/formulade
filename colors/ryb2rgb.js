@@ -248,7 +248,50 @@
     }
     return ret;
   }
+  
+	function rgb2ryb(color) {
+		var r = color[0], g = color[1], b = color[2];
+		// Remove the whiteness from the color.
+		var w = Math.min(r, g, b);
+		r -= w;
+		g -= w;
+		b -= w;
 
+		var mg = Math.max(r, g, b);
+
+		// Get the yellow out of the red+green.
+		var y = Math.min(r, g);
+		r -= y;
+		g -= y;
+
+		// If this unfortunate conversion combines blue and green, then cut each in
+		// half to preserve the value's maximum range.
+		if (b && g) {
+			b /= 2.0;
+			g /= 2.0;
+		}
+
+		// Redistribute the remaining green.
+		y += g;
+		b += g;
+
+		// Normalize to values.
+		var my = Math.max(r, y, b);
+		if (my) {
+			var n = mg / my;
+			r *= n;
+			y *= n;
+			b *= n;
+		}
+
+		// Add the white back in.
+		r += w;
+		y += w;
+		b += w;
+
+		// And return back the ryb typed accordingly.
+		return [r, y, b];
+	}
   /**
    * ryb2rgb, the motherload, convert a RYB array to RGB
    *
@@ -340,5 +383,6 @@
   global.RXB.rainbow = rainbow;
   global.RXB.MAGIC_COLORS = MAGIC_COLORS;
   global.RXB.ryb2rgb = ryb2rgb;
+  global.RXB.rgb2ryb = rgb2ryb;
 
 })(typeof window === 'undefined' ? exports : window);

@@ -713,8 +713,11 @@ function hexToComplementary(hex){
 	var R = parseInt(hex.slice(0,2), 16); 
 	var B = parseInt(hex.slice(2,4), 16);
 	var G = parseInt(hex.slice(4,6), 16);
-	//console.log(ryb2rgb([R,B,G])+"_"+[R,B,G]+"_"+R+" " +B+" "+G);
-    return "rgb("+RXB.complementary(RXB.ryb2rgb([R,B,G]),0)+")";
+	//console.log("%c rgb("+[R,B,G]+")", 'background:'+"rgb("+[R,B,G]+")"+';');
+	//console.log("%c rgb("+RXB.rgb2ryb([R,B,G])+")", 'background:'+"rgb("+RXB.rgb2ryb([R,B,G])+")"+';');
+	//console.log("%c rgb("+RXB.ryb2rgb(RXB.rgb2ryb([R,B,G]))+")", 'background:'+"rgb("+RXB.ryb2rgb(RXB.rgb2ryb([R,B,G]))+")"+';');
+
+    return "rgb("+RXB.ryb2rgb(RXB.complementary(RXB.rgb2ryb([R,B,G]),0))+")";
 }  
 
 //accepts either a string color and string player number or tinyColor object and move event (e)
