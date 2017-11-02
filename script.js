@@ -224,17 +224,19 @@ function newPlayer(){
 
 function reset(num){
 	//element=document.getElementById(twoDec(num));
-	//console.log("_"+twoDec(num));
+	console.log("_"+twoDec(num));
+
 	child=document.getElementById("_"+twoDec(num)).firstChild;
 	while(child != null){
-	//console.log(child.id);
-		if(child.nodeType==1&&child.tagName=="select"){
+		//console.log(child.id);
+		if(child.nodeType==1&&child.tagName=="SELECT"){
+			console.log(child.getAttribute("type"));
 			//console.log(child.tagName+" "+child.value);
 			child.options[0]=new Option("1", "0102", false, false);
 			child.value="0102";
 			gear(child);
 		} 
-		if(child.nodeType!=1||child.tagName!="input"||child.getAttribute("type")!="text"||child.id=="name"+twoDec(num)){
+		if(child.nodeType!=1||child.tagName!="INPUT"||child.getAttribute("type")!="text"||child.id=="name"+twoDec(num)){
 			child=child.nextSibling;
 			continue;
 		}
@@ -332,7 +334,8 @@ function sel(element){
 function namer(element,eventType){
 	var player = par(element);
 	//console.log('name'+player+"."+'playerid'+player);
-	if(element.tagName=="label"){
+	//console.log(element.tagName);
+	if(element.tagName=="LABEL"){
 		$(element).css('display','none');
 		$('#name'+player).show().css('display','inline-block').select();
 		return;
@@ -442,12 +445,12 @@ function nextPlayer(cur){
 	//console.log(child.id.substring(1,3));
 	//console.log(current.parentNode.nextSibling.nextSibling.nodeType+current.parentNode.nextSibling.nextSibling.tagName);
 	do{
-		if(child.nodeType!=1||child.tagName!="div"){
+		if(child.nodeType!=1||child.tagName!="DIV"){
 			child=child.nextSibling;
 			continue;
 		}
 		child=child.nextSibling;
-	}while(child!=null&&child.tagName!="div")
+	}while(child!=null&&child.tagName!="DIV")
 	//console.log(child.id.substring(1,3));
 	return child;
 }
