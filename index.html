@@ -161,11 +161,11 @@
 			<circle id="gearbot00" cx="50" cy="120" r="5" style="fill:black;" />
 		</svg>
 		</div>
-		<div class="gamePlay">
+		<div id="gamePlay00" class="gamePlay">
 			<span id="currentGear00">Current gear is: 1st</span>. Changing to: <span id="nextGear00">1st</span>.
 			<br/>
 
-			<button id ="rand2but00" type="button" onclick="var par1=sel(this); var player=getElementById('_'+par1); select(par1,player.currentGear); roll(getElementById('rand2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);console.log(value.substring(0,2)+' '+value.substring(2,4))">Roll</button>
+			<button id ="rand2but00" type="button" onclick="var par1=sel(this); var player=getElementById('_'+par1); select(par1,player.currentGear); roll(getElementById('rand2'+par1), gearTop[player.currentGear], gearBottom[player.currentGear], this);">Roll</button>
 			<label id="gearlab00" for="rand200">1st Gear Result</label>
 			<input size="1" type="text" id="rand200" value="0"/><br/>
 			<button id="cum2but00" type="button" onclick="par1=par(this);add(getElementById('rand2'+par1), getElementById('cum2'+par1), this);">Add--></button>
