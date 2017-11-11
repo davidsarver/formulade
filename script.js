@@ -174,7 +174,10 @@ function newPlayer(){
 		}
 		
 		//if (child.tagName=="svg:radialGradient"){continue;}
-		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color);console.log(child.id);};
+		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){
+			child.addEventListener('click', color);
+			//console.log(child.id);
+		}
 		
 		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
@@ -230,7 +233,7 @@ function newPlayer(){
 
 function reset(num){
 	//element=document.getElementById(twoDec(num));
-	console.log("_"+twoDec(num));
+	//console.log("_"+twoDec(num));
 
 	child=document.getElementById("_"+twoDec(num)).firstChild;
 	while(child != null){
@@ -296,14 +299,14 @@ function gear(element, x, y, num){
 		var gear = document.getElementById("gear"+par1);
 		if(num<(player.currentGear+2)&&num>(player.currentGear-5)){//(allowed) //players can only shift up one or down four.
 			player.nextGear=num;//player is document object
-			console.log(player.nextGear+"="+num);
+			//console.log(player.nextGear+"="+num);
 			next.innerHTML=ordinate(num);
 			gear.setAttribute("cx",x);
 			gear.setAttribute("cy",y);
 			var color=69*(player.currentGear-num-1);
 			if (color<0){color=0;}
 			color="#"+(color).toString(16)+"0000"
-			console.log(color+" next:"+num);
+			//console.log(color+" next:"+num);
 			document.getElementById('gearcen'+par1).style.fill=color;
 			document.getElementById('geartop'+par1).style.fill=color;
 			document.getElementById('gearbot'+par1).style.fill=color;
@@ -340,10 +343,13 @@ function sel(element){
 function namer(element,eventType){
 	var player = par(element);
 	//console.log('name'+player+"."+'playerid'+player);
-	//console.log(element.tagName);
+	console.log(player + " " + element.tagName + " " + eventType);
 	if(element.tagName=="LABEL"){
-		$(element).css('display','none');
-		$('#name'+player).show().css('display','inline-block').select();
+		//$(element).css('display','none');
+		//$('#name'+player).show().css('display','inline-block')
+		if(eventType!='edit'){
+			$('#name'+player).select();
+		}
 		return;
 	}
 	if(eventType=='change'){
@@ -396,18 +402,27 @@ function ordinate(num){
 };
 
 function order(){
+	var player;
 	try{
 		$("#tabcontainer").sortable("destroy");
 		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
 		$('.roster').hide();
 		$('.gamePlay').show();
-		changeCoverHeight()
+		for(player in $(".playerId").toArray()){
+			namer(document.getElementById('name'+twoDec(player)),'blur');
+		}
+		changeCoverHeight();
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
 		document.getElementById('order').innerHTML='Set Order';
 		$('.roster').show();
 		$('.gamePlay').hide();
-		changeCoverHeight()
+		//console.log($(".playerId").toArray()[1].id);
+		for(player in $(".playerId").toArray()){
+			console.log(twoDec(player));
+			namer(document.getElementById('playerid'+twoDec(player)),'edit');
+		}
+		changeCoverHeight();
 		return;
 	}
 	
