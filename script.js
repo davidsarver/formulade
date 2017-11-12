@@ -345,8 +345,8 @@ function namer(element,eventType){
 	//console.log('name'+player+"."+'playerid'+player);
 	console.log(player + " " + element.tagName + " " + eventType);
 	if(element.tagName=="LABEL"){
-		//$(element).css('display','none');
-		//$('#name'+player).show().css('display','inline-block')
+		$(element).css('display','none');
+		$('#name'+player).show().css('display','inline-block')
 		if(eventType!='edit'){
 			$('#name'+player).select();
 		}
@@ -408,9 +408,9 @@ function order(){
 		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
 		$('.roster').hide();
 		$('.gamePlay').show();
-		for(player in $(".playerId").toArray()){
-			namer(document.getElementById('name'+twoDec(player)),'blur');
-		}
+		//for(player in $(".playerId").toArray()){
+		//	namer(document.getElementById('name'+twoDec(player)),'blur');
+		//}
 		changeCoverHeight();
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
@@ -418,10 +418,10 @@ function order(){
 		$('.roster').show();
 		$('.gamePlay').hide();
 		//console.log($(".playerId").toArray()[1].id);
-		for(player in $(".playerId").toArray()){
-			console.log(twoDec(player));
-			namer(document.getElementById('playerid'+twoDec(player)),'edit');
-		}
+		//for(player in $(".playerId").toArray()){
+		//	console.log(twoDec(player));
+		//	namer(document.getElementById('playerid'+twoDec(player)),'edit');
+		//}
 		changeCoverHeight();
 		return;
 	}
