@@ -160,7 +160,9 @@ function newPlayer(){
 	newElement.id= "playertab"+twoDec(player);
 	document.getElementById('tabcontainer').appendChild(newElement);
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
-	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
+	var nameInput = document.getElementById('name');
+	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML=nameInput.value;
+	nameInput.value="Player "+(1+player);
 
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
@@ -222,8 +224,8 @@ function newPlayer(){
 	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color,showInput:false,showButtons:false,appendTo:"#roster"+twoDec(player)});//initialize the complement edit color picker
 	$("#playerComplementEdit"+twoDec(player)).on('move.spectrum', function(e,color){complementEdit(color,e)}); //bind the complementEdit() function;
 	
-	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
-	document.getElementById('name'+twoDec(player)).value="Player "+player;
+	document.getElementById('playerid'+twoDec(player)).innerHTML=nameInput.value;
+	document.getElementById('name'+twoDec(player)).value=nameInput.value;
 	Players.add(player);
 	
 	//console.log('playerid'+twoDec(player));
@@ -343,13 +345,10 @@ function sel(element){
 function namer(element,eventType){
 	var player = par(element);
 	//console.log('name'+player+"."+'playerid'+player);
-	console.log(player + " " + element.tagName + " " + eventType);
+	//console.log(player + " " + element.tagName + " " + eventType);
 	if(element.tagName=="LABEL"){
 		$(element).css('display','none');
-		$('#name'+player).show().css('display','inline-block')
-		if(eventType!='edit'){
-			$('#name'+player).select();
-		}
+		$('#name'+player).show().css('display','inline-block').select();
 		return;
 	}
 	if(eventType=='change'){

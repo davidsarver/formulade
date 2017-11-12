@@ -148,7 +148,7 @@ svg.svg circle.gear{
 #newPlayerPanel{
 	position:relative;	
 }
-.name, input, button, .sp-light{
+.name, input, label, button, .sp-light{
 	position:relative;
 	z-index:1;
 }
