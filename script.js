@@ -160,7 +160,8 @@ function newPlayer(){
 	newElement.id= "playertab"+twoDec(player);
 	document.getElementById('tabcontainer').appendChild(newElement);
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
-	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML="Player "+player;
+	var nameInput = document.getElementById('name');
+	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML=nameInput.value;
 
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
@@ -174,7 +175,10 @@ function newPlayer(){
 		}
 		
 		//if (child.tagName=="svg:radialGradient"){continue;}
-		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){child.addEventListener('click', color);console.log(child.id);};
+		if (child.tagName=="circle"&&child.id.substring(0,3)=='peg'){
+			child.addEventListener('click', color);
+			//console.log(child.id);
+		}
 		
 		if(typeof(child.id)=="undefined"||child.id==""){//TODO redo this ifelse
 		}else{
@@ -219,8 +223,9 @@ function newPlayer(){
 	$("#playerComplementEdit"+twoDec(player)).spectrum({color:color,showInput:false,showButtons:false,appendTo:"#roster"+twoDec(player)});//initialize the complement edit color picker
 	$("#playerComplementEdit"+twoDec(player)).on('move.spectrum', function(e,color){complementEdit(color,e)}); //bind the complementEdit() function;
 	
-	document.getElementById('playerid'+twoDec(player)).innerHTML="Player "+player;
-	document.getElementById('name'+twoDec(player)).value="Player "+player;
+	document.getElementById('playerid'+twoDec(player)).innerHTML=nameInput.value;
+	document.getElementById('name'+twoDec(player)).value=nameInput.value;
+	nameInput.value="Player "+(1+player);
 	Players.add(player);
 	
 	//console.log('playerid'+twoDec(player));
@@ -230,7 +235,7 @@ function newPlayer(){
 
 function reset(num){
 	//element=document.getElementById(twoDec(num));
-	console.log("_"+twoDec(num));
+	//console.log("_"+twoDec(num));
 
 	child=document.getElementById("_"+twoDec(num)).firstChild;
 	while(child != null){
@@ -296,14 +301,14 @@ function gear(element, x, y, num){
 		var gear = document.getElementById("gear"+par1);
 		if(num<(player.currentGear+2)&&num>(player.currentGear-5)){//(allowed) //players can only shift up one or down four.
 			player.nextGear=num;//player is document object
-			console.log(player.nextGear+"="+num);
+			//console.log(player.nextGear+"="+num);
 			next.innerHTML=ordinate(num);
 			gear.setAttribute("cx",x);
 			gear.setAttribute("cy",y);
 			var color=69*(player.currentGear-num-1);
 			if (color<0){color=0;}
 			color="#"+(color).toString(16)+"0000"
-			console.log(color+" next:"+num);
+			//console.log(color+" next:"+num);
 			document.getElementById('gearcen'+par1).style.fill=color;
 			document.getElementById('geartop'+par1).style.fill=color;
 			document.getElementById('gearbot'+par1).style.fill=color;
@@ -340,7 +345,7 @@ function sel(element){
 function namer(element,eventType){
 	var player = par(element);
 	//console.log('name'+player+"."+'playerid'+player);
-	//console.log(element.tagName);
+	//console.log(player + " " + element.tagName + " " + eventType);
 	if(element.tagName=="LABEL"){
 		$(element).css('display','none');
 		$('#name'+player).show().css('display','inline-block').select();
@@ -396,18 +401,27 @@ function ordinate(num){
 };
 
 function order(){
+	var player;
 	try{
 		$("#tabcontainer").sortable("destroy");
 		document.getElementById('order').innerHTML='Order/Edit<br/>Roster';
 		$('.roster').hide();
 		$('.gamePlay').show();
-		changeCoverHeight()
+		//for(player in $(".playerId").toArray()){
+		//	namer(document.getElementById('name'+twoDec(player)),'blur');
+		//}
+		changeCoverHeight();
 	}catch(err){
 		$("#tabcontainer").sortable({placeholder: "ui-state-highlight"}).disableSelection;
 		document.getElementById('order').innerHTML='Set Order';
 		$('.roster').show();
 		$('.gamePlay').hide();
-		changeCoverHeight()
+		//console.log($(".playerId").toArray()[1].id);
+		//for(player in $(".playerId").toArray()){
+		//	console.log(twoDec(player));
+		//	namer(document.getElementById('playerid'+twoDec(player)),'edit');
+		//}
+		changeCoverHeight();
 		return;
 	}
 	

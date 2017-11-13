@@ -94,10 +94,10 @@ label.name{
 	font-weight:bold;
 	color:#1c94c4;
 	cursor:pointer;
-	display:none;
 }
 input.name{
 	width:125px;
+	display:none;
 }
 div#newPlayerPanel{
 	margin:10px;
@@ -148,7 +148,7 @@ svg.svg circle.gear{
 #newPlayerPanel{
 	position:relative;	
 }
-.name, input, button, .sp-light{
+.name, input, label, button, .sp-light{
 	position:relative;
 	z-index:1;
 }
