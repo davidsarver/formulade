@@ -162,7 +162,6 @@ function newPlayer(){
 	document.getElementById('playertab'+twoDec(player)).firstChild.href="#_"+twoDec(player);
 	var nameInput = document.getElementById('name');
 	document.getElementById('playertab'+twoDec(player)).firstChild.innerHTML=nameInput.value;
-	nameInput.value="Player "+(1+player);
 
 	
 	var all = document.getElementById("_"+twoDec(player)).getElementsByTagName('*');
@@ -226,6 +225,7 @@ function newPlayer(){
 	
 	document.getElementById('playerid'+twoDec(player)).innerHTML=nameInput.value;
 	document.getElementById('name'+twoDec(player)).value=nameInput.value;
+	nameInput.value="Player "+(1+player);
 	Players.add(player);
 	
 	//console.log('playerid'+twoDec(player));
